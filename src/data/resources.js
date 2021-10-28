@@ -11,7 +11,7 @@ import FootballDataClub from './football-data/Club';
 import ApiFootballClub from './api-football/club';
 
 export const apis = {
-    footballdb: 'footballdb',
+    // footballdb: 'footballdb',
     footballData: 'football-data',
     apifootball: 'api-football'
 };

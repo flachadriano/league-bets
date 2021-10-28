@@ -1,8 +1,8 @@
 const leagues = [
-    {name: 'A-League (AUS - 2020)', id: 1334},
-    {name: 'CFA Super League (CN - 2020)', id: 1353},
-    {name: 'J.League (JAP - 2020)', id: 1357},
-    {name: 'MLS (USA - 2020)', id: 1264},
+    {name: 'A-League (AUS - 2021)', id: 1334},
+    {name: 'CFA Super League (CN - 2021)', id: 1353},
+    {name: 'J.League (JAP - 2021)', id: 1357},
+    {name: 'MLS (USA - 2021)', id: 1264},
 ]
 
 const data = [];

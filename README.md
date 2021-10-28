@@ -4,6 +4,7 @@
 ```
 npm install
 ```
+https://stackoverflow.com/questions/69719601/getting-error-digital-envelope-routines-reason-unsupported-code-err-oss
 
 ### Compiles and hot-reloads for development
 ```
