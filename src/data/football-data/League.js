@@ -1,5 +1,5 @@
 import { URL, HEADERS } from './Resources';
-import BaseLeague from '../base-league';
+import BaseLeague from '../BaseLeague';
 import Match from './Match';
 
 export default class League extends BaseLeague {
