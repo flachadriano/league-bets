@@ -36,11 +36,17 @@ export default new Vuex.Store({
         changeApi: (state, apiEl) => {
             const api = apiEl.target.value;
             state.api = api;
-            state.leagues = loadLeagues(api);
-            state.league = defaultLeague;
             state.clubs = [];
             state.club = {};
             state.compareClub = {};
+            
+            if (api == 'grid') {
+                loadLeagues(state.api).loadLeagues()
+                    .then(leagues => state.leagues = leagues);
+            } else {
+                state.leagues = loadLeagues(api);
+                state.league = defaultLeague;
+            }
         },
         changeLeague: (state, leagueEl) => {
             const league = leagueEl.target.value;
@@ -52,20 +58,18 @@ export default new Vuex.Store({
             state.club = {};
             state.compareClub = {};
 
-            if (state.api == 'grid') {
-                loadedLeague.loadLeagues()
-                    .then(leagues => state.leaguesList = leagues);
-            } else {
-                state.loadingClubs = true;
-                loadedLeague.loadMatches()
-                    .then(matches => state.matches = matches)
-                    .then(() => loadedLeague.loadClubs())
-                    .then(clubs => BaseLeague.validateClubs(clubs))
-                    .then(clubs => clubs.map(club => loadClubResources(state.api, state.league, club, clubs, state.matches)))
-                    .then(clubs => clubs.sort((a, b) => a.nextMatch().dateObj - b.nextMatch().dateObj))
-                    .then(clubs => state.clubs = clubs)
-                    .then(() => state.loadingClubs = false);
-            }
+            state.loadingClubs = true;
+            loadedLeague.loadMatches()
+                .then(matches => state.matches = matches)
+                .then(() => loadedLeague.loadClubs())
+                .then(clubs => BaseLeague.validateClubs(clubs))
+                .then(clubs => clubs.map(club => loadClubResources(state.api, state.league, club, clubs, state.matches)))
+                .then(clubs => clubs.sort((a, b) => a.nextMatch().dateObj - b.nextMatch().dateObj))
+                .then(clubs => state.clubs = clubs)
+                .then(() => state.loadingClubs = false);
+        },
+        selectGridLeague: (state, league) => {
+            state.league = league;
         },
         selectClub: (state, club) => {
             if (typeof club == 'object' && club.name) {

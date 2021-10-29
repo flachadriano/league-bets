@@ -1,6 +1,9 @@
  <template>
     <div class="d-flex flex-wrap">
-        <div class="d-flex flex-column ml-2 mb-5" style="min-width: 200px" v-for="league in leaguesList" :key="league">
+        <a class="d-flex flex-column ml-2 mb-5" 
+            style="min-width: 200px" 
+            @click.prevent="selectGridLeague(league.league)"
+            v-for="league in leagues" :key="league.league.id">
             <div class="align-content-center">
                 <img :src="league.league.logo">
             </div>
@@ -8,7 +11,7 @@
                 <img :src="league.country.flag" height="24px" width="24px">
                 <span class="ml-2">{{ league.league.name }}</span>
             </div>
-        </div>
+        </a>
     </div>
 </template>
 
@@ -18,13 +21,12 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
     computed: {
         ...mapGetters([
-            'leaguesList',
+            'leagues',
         ])
     },
     methods: {
         ...mapMutations([
-            'changeApi',
-            'changeLeague',
+            'selectGridLeague',
         ])
     }
 }
