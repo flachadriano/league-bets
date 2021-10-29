@@ -7,7 +7,6 @@ export default class League extends BaseGridLeague {
         return await fetch(`${URL}/leagues`, HEADERS)
             .then(r => r.json())
             .then(data => data.response)
-            .then(data => data.filter(league => league.country.name != 'World'))
             .then(data => data.sort((a, b) => {
                 if (a.country.name < b.country.name) {
                     return -1;

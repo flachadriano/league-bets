@@ -20,7 +20,15 @@ export default class League extends BaseLeague {
         queries.push(fetch(fixturesURL, HEADERS).then(r => r.json()).then(d => this.fixtures = d.response));
 
         Promise.all(queries).then(() => {
-            this.currentRoundFixtures = this.fixtures.filter(fixture => fixture.league.round == this.currentRoundName).map(f => new Match(f));
+            this.currentRoundFixtures = this.fixtures.filter(fixture => fixture.league.round == this.currentRoundName).map(f => new Match(f)).sort((a, b) => {
+                if (a.date < b.date) {
+                    return -1;
+                }
+                if (a.date > b.date) {
+                    return 1;
+                }
+                return 0;
+            });
         });
     }
 
