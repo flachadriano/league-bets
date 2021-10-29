@@ -6,10 +6,13 @@ import GridLeagues from './grid/Leagues';
 import FootballDbLeague from './footballdb/League';
 import FootballDataLeague from './football-data/League';
 import ApiFootballLeague from './api-football/league';
+import GridLeague from './grid/League';
 
 import FootballDbClub from './footballdb/Club';
 import FootballDataClub from './football-data/Club';
 import ApiFootballClub from './api-football/club';
+
+export const SEASON = 2021;
 
 export const apis = {
     // footballdb: 'footballdb',
@@ -40,6 +43,8 @@ export function loadLeagueResources(api, league) {
                 return new FootballDataLeague(league);
             case apis.apifootball:
                 return new ApiFootballLeague(league);
+            case apis.grid:
+                return new GridLeague(league);
             default:
                 alert('No API found');
         }

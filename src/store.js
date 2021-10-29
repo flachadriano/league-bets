@@ -30,7 +30,8 @@ export default new Vuex.Store({
         clubs: state => state.clubs,
         club: state => state.club,
         compareClub: state => state.compareClub,
-        hasSelectedClub: state => Object.keys(state.club).length > 0
+        hasSelectedLeague: state => Object.keys(state.league).length > 0,
+        hasSelectedClub: state => Object.keys(state.club).length > 0,
     },
     mutations: {
         changeApi: (state, apiEl) => {
@@ -41,8 +42,8 @@ export default new Vuex.Store({
             state.compareClub = {};
             
             if (api == 'grid') {
-                loadLeagues(state.api).loadLeagues()
-                    .then(leagues => state.leagues = leagues);
+                loadLeagues(state.api).loadLeagues().then(leagues => state.leagues = leagues);
+                state.league = {};
             } else {
                 state.leagues = loadLeagues(api);
                 state.league = defaultLeague;
@@ -69,7 +70,7 @@ export default new Vuex.Store({
                 .then(() => state.loadingClubs = false);
         },
         selectGridLeague: (state, league) => {
-            state.league = league;
+            state.league = loadLeagueResources(state.api, league);
         },
         selectClub: (state, club) => {
             if (typeof club == 'object' && club.name) {
