@@ -20,9 +20,7 @@ export default class League extends BaseGridLeague {
             .then(data => data.filter(league => {
                 const leagues = [128, 71, 39, 61, 78, 135, 94, 140, 253];
                 return leagues.includes(league.league.id);
-            }))
-            .then(data => data.filter(league => ![].includes(league.league.id)))
-            .then(data => data.map(league => `${league.country.name} / ${league.league.name} (ID: ${league.league.id})`));
+            }));
     }
 
 }
