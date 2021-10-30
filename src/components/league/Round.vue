@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-center flex-column">
+    <div>
         <h2>{{ title }}</h2>
         <div>
             <Fixture :fixture="fixture" v-for="fixture in fixtures" :key="fixture.id"></Fixture>

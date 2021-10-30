@@ -1,9 +1,9 @@
 <template>
     <div class="d-flex justify-content-center">
         <div v-for="(match, i) in matches" :key="i">
-            <div :key="match.date" style="width: 24px; margin-right: 3px" class="bg-secondary rounded" v-if="match.draw">D</div>
-            <div :key="match.date" style="width: 24px; margin-right: 3px" class="bg-success rounded" v-else-if="match.win">W</div>
-            <div :key="match.date" style="width: 24px; margin-right: 3px" class="bg-danger rounded" v-else>L</div>
+            <div :key="match.date" style="width: 30px" class="mr-1 bg-secondary rounded" v-if="match.draw">{{ match.homeScore }}x{{ match.awayScore }}</div>
+            <div :key="match.date" style="width: 30px" class="mr-1 bg-success rounded" v-else-if="match.win">{{ match.homeScore }}x{{ match.awayScore }}</div>
+            <div :key="match.date" style="width: 30px" class="mr-1 bg-danger rounded" v-else>{{ match.homeScore }}x{{ match.awayScore }}</div>
         </div>
     </div>
 </template>

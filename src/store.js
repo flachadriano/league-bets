@@ -18,6 +18,7 @@ export default new Vuex.Store({
         clubs: [],
         club: {},
         compareClub: {},
+        fixture: {},
     },
     getters: {
         apis: state => state.apis,
@@ -29,9 +30,11 @@ export default new Vuex.Store({
         loadingClubs: state => state.loadingClubs,
         clubs: state => state.clubs,
         club: state => state.club,
+        fixture: state => state.fixture,
         compareClub: state => state.compareClub,
         hasSelectedLeague: state => Object.keys(state.league).length > 0,
         hasSelectedClub: state => Object.keys(state.club).length > 0,
+        hasFixture: state => Object.keys(state.fixture).length > 0,
     },
     mutations: {
         changeApi: (state, apiEl) => {
@@ -87,6 +90,9 @@ export default new Vuex.Store({
             } else {
                 state.compareClub = {};
             }
-        }
+        },
+        selectFixture: (state, fixture) => {
+            state.fixture = fixture;
+        },
     }
 });

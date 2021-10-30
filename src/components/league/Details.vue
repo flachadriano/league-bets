@@ -1,0 +1,38 @@
+<template>
+    <div class="d-flex">
+        <ClubDetail :id="fixture.homeId"
+            :logo="fixture.homeLogo"
+            :name="fixture.home"
+            :rank="league.teamStanding(fixture.homeId).rank"
+            :points="league.teamStanding(fixture.homeId).points"
+            :standing="league.teamStanding(fixture.homeId).all"
+            :standinghomeaway="league.teamStanding(fixture.homeId).home">
+        </ClubDetail>
+        <ClubDetail class="ml-2"
+            :id="fixture.awayId"
+            :logo="fixture.awayLogo"
+            :name="fixture.away"
+            :rank="league.teamStanding(fixture.awayId).rank"
+            :points="league.teamStanding(fixture.awayId).points"
+            :standing="league.teamStanding(fixture.awayId).all"
+            :standinghomeaway="league.teamStanding(fixture.awayId).away">
+        </ClubDetail>
+    </div>
+</template>
+
+<script>
+import ClubDetail from './ClubDetail.vue';
+import { mapGetters } from 'vuex';
+
+export default {
+    components: {
+        ClubDetail,
+    },
+    computed: {
+        ...mapGetters([
+            'league',
+        ])
+    },
+    props: ['fixture'],
+}
+</script>
