@@ -5,8 +5,8 @@
   "scripts": {
     "start": "export NODE_OPTIONS=--openssl-legacy-provider && serve -s dist",
     "serve": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
-    "lint": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service lint"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
