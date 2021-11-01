@@ -75,6 +75,9 @@ export default new Vuex.Store({
         selectGridLeague: (state, league) => {
             state.league = loadLeagueResources(state.api, league);
         },
+        closeLeague: (state) => {
+            state.league = {};
+        },
         selectClub: (state, club) => {
             if (typeof club == 'object' && club.name) {
                 state.club = club;

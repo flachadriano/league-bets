@@ -3,6 +3,7 @@
     <Leagues></Leagues>
     <League v-if="api != 'grid' && !hasSelectedClub"></League>
     <GridLeague v-if="api == 'grid' && !hasSelectedLeague"></GridLeague>
+    <Info v-if="api == 'grid' && hasSelectedLeague"></Info>
     <LeagueGames v-if="api == 'grid' && hasSelectedLeague"></LeagueGames>
     <div class="d-flex justify-content-center">
       <Club v-if="hasSelectedClub" :club="club" @close="selectClub"></Club>
@@ -14,6 +15,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Leagues from './components/Leagues';
+import Info from './components/league/Info.vue';
 import League from './components/League';
 import Club from './components/Club';
 import GridLeague from './components/GridLeague.vue';
@@ -23,6 +25,7 @@ export default {
   name: 'App',
   components: {
     Leagues,
+    Info,
     League,
     Club,
     GridLeague,
