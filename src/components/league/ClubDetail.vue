@@ -4,7 +4,7 @@
             <img class="mr-2" :src="logo" width="24px" height="24px">
             <span>{{ name }}</span>
         </div>
-        <Race :matches="league.lastMatches(id)"></Race>
+        <Race :matches="league.lastMatches(id)" :key="1"></Race>
         <div>
             <span>{{ rank }} - {{ points }} points</span>
         </div>
@@ -17,7 +17,12 @@
         <div>
             <span>{{ standing.goals.for }}:{{ standing.goals.against }} Goals</span>
         </div>
+        <div>
+            <span>{{ standing.goals.for / standing.played }}:{{ standing.goals.against /standing.played }} Goals per match</span>
+        </div>
+        <hr>
         <span>Home/Away</span>
+        <Race :matches="homeawaymatches" :key="2"></Race>
         <div>
             <span>{{ standinghomeaway.played }} P | </span>
             <span>{{ standinghomeaway.win }} W | </span>
@@ -26,6 +31,9 @@
         </div>
         <div>
             <span>{{ standinghomeaway.goals.for }}:{{ standinghomeaway.goals.against }} Goals</span>
+        </div>
+        <div>
+            <span>{{ standinghomeaway.goals.for/standinghomeaway.played }}:{{ standinghomeaway.goals.against/standinghomeaway.played }} Goals per match</span>
         </div>
     </div>
 </template>
@@ -43,6 +51,6 @@ export default {
             'league',
         ])
     },
-    props: ['id', 'logo', 'name', 'rank', 'points', 'standing', 'standinghomeaway'],
+    props: ['id', 'logo', 'name', 'rank', 'points', 'standing', 'standinghomeaway', 'homeawaymatches'],
 }
 </script>

@@ -17,7 +17,7 @@ export default class League extends BaseGridLeague {
                 return 0;
             }))
             .then(data => data.filter(league => {
-                const leagues = [128, 71, 39, 61, 78, 135, 94, 140, 253];
+                const leagues = [128, 71, 39, 61, 78, 135, 94, 140];
                 return leagues.includes(league.league.id);
             }));
     }

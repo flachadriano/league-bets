@@ -6,7 +6,8 @@
             :rank="league.teamStanding(fixture.homeId).rank"
             :points="league.teamStanding(fixture.homeId).points"
             :standing="league.teamStanding(fixture.homeId).all"
-            :standinghomeaway="league.teamStanding(fixture.homeId).home">
+            :standinghomeaway="league.teamStanding(fixture.homeId).home"
+            :homeawaymatches="league.lastHomeMatches(fixture.homeId)">
         </ClubDetail>
         <ClubDetail class="ml-2"
             :id="fixture.awayId"
@@ -15,7 +16,8 @@
             :rank="league.teamStanding(fixture.awayId).rank"
             :points="league.teamStanding(fixture.awayId).points"
             :standing="league.teamStanding(fixture.awayId).all"
-            :standinghomeaway="league.teamStanding(fixture.awayId).away">
+            :standinghomeaway="league.teamStanding(fixture.awayId).away"
+            :homeawaymatches="league.lastAwayMatches(fixture.awayId)">
         </ClubDetail>
     </div>
 </template>
