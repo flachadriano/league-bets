@@ -1,6 +1,7 @@
 <template>
     <div class="d-flex">
-        <ClubDetail :id="fixture.homeId"
+        <ClubDetail :key="1"
+            :id="fixture.homeId"
             :logo="fixture.homeLogo"
             :name="fixture.home"
             :rank="league.teamStanding(fixture.homeId).rank"
@@ -10,6 +11,7 @@
             :homeawaymatches="league.lastHomeMatches(fixture.homeId)">
         </ClubDetail>
         <ClubDetail class="ml-2"
+            :key="2"
             :id="fixture.awayId"
             :logo="fixture.awayLogo"
             :name="fixture.away"

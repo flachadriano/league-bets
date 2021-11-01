@@ -17,43 +17,64 @@ export default class League extends BaseLeague {
     constructor(league) {
         super(league);
 
+        this.id = league.id;
+        this.logo = league.logo;
+        this.name = league.name;
+        this.country = league.country;
+    }
+
+    currentRoundName() {
+        const standingURL = `${URL}/standings?league=${this.id}&season=${SEASON}`;
+        fetch(standingURL, HEADERS).then(r => r.json()).then(d => this.standing = d.response[0].league.standings[0]);
+
         const queries = [];
 
-        const roundListNameURL = `${URL}/fixtures/rounds?league=${league.id}&season=${SEASON}`;
-        queries.push(fetch(roundListNameURL, HEADERS).then(r => r.json()).then(d => this.roundListName = d.response));
-
-        const currentRoundURL = `${URL}/fixtures/rounds?league=${league.id}&season=${SEASON}&current=true`;
+        const currentRoundURL = `${URL}/fixtures/rounds?league=${this.id}&season=${SEASON}&current=true`;
         queries.push(fetch(currentRoundURL, HEADERS).then(r => r.json()).then(d => this.currentRoundName = d.response[0]));
 
-        const fixturesURL = `${URL}/fixtures?league=${league.id}&season=${SEASON}`;
-        queries.push(fetch(fixturesURL, HEADERS).then(r => r.json()).then(d => this.fixtures = d.response));
+        const roundListNameURL = `${URL}/fixtures/rounds?league=${this.id}&season=${SEASON}`;
+        queries.push(fetch(roundListNameURL, HEADERS).then(r => r.json()).then(d => this.roundListName = d.response));
 
-        const standingURL = `${URL}/standings?league=${league.id}&season=${SEASON}`;
-        queries.push(fetch(standingURL, HEADERS).then(r => r.json()).then(d => this.standing = d.response[0].league.standings[0]));
-
-        const getRoundFixtures = (fixtures, roundName) => {
-            return fixtures.filter(fixture => fixture.league.round == roundName)
-                .map(f => new Match(f)).sort((a, b) => {
-                    if (a.date < b.date) {
-                        return -1;
-                    }
-                    if (a.date > b.date) {
-                        return 1;
-                    }
-                    return 0;
-                });
-        }
-
-        Promise.all(queries).then(() => {
-            this.currentRoundFixtures = getRoundFixtures(this.fixtures, this.currentRoundName);
-
-            // next round
+        return Promise.all(queries).then(() => {
             const currentRoundIndex = this.roundListName.indexOf(this.currentRoundName);
             const nextRoundIndex = currentRoundIndex + 1;
             if (nextRoundIndex < this.roundListName.length) {
                 this.nextRoundName = this.roundListName[nextRoundIndex];
-                this.nextRoundFixtures = getRoundFixtures(this.fixtures, this.nextRoundName);
+            } else {
+                this.nextRoundName = this.roundListName[this.roundListName.length - 1];
             }
+
+            return this.currentRoundName;
+        });
+    }
+
+    loadFixtures() {
+        if (this.fixtures) {
+            return Promise.resolve(this.fixtures);
+        } else {
+            const fixturesURL = `${URL}/fixtures?league=${this.id}&season=${SEASON}`;
+            return fetch(fixturesURL, HEADERS).then(r => r.json()).then(d => this.fixtures = d.response);
+        }
+    }
+
+    getRoundFixtures(fixtures, roundName) {
+        return fixtures.filter(fixture => fixture.league.round == roundName)
+            .map(f => new Match(f)).sort((a, b) => {
+                if (a.date < b.date) {
+                    return -1;
+                }
+                if (a.date > b.date) {
+                    return 1;
+                }
+                return 0;
+            });
+    }
+
+    currentRoundFixtures() {
+        return this.loadFixtures().then(() => {
+            this.nextRoundFixtures = this.getRoundFixtures(this.fixtures, this.nextRoundName);
+
+            return this.getRoundFixtures(this.fixtures, this.currentRoundName);
         });
     }
 

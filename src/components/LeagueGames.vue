@@ -1,9 +1,11 @@
 <template>
     <div class="d-flex justify-content-center">
-        <Round :title="league.currentRoundName" 
-            :fixtures="league.currentRoundFixtures">
+        <Round :key="1" 
+            :title="currentRoundName" 
+            :fixtures="currentRoundFixtures">
         </Round>
         <Round class="ml-2 mr-2" 
+            :key="2"
             :title="league.nextRoundName" 
             :fixtures="league.nextRoundFixtures">
         </Round>
@@ -29,6 +31,14 @@ export default {
             'hasFixture',
             'fixture',
         ])
+    },
+    asyncComputed: {
+        async currentRoundName() {
+            return this.league.currentRoundName();
+        },
+        async currentRoundFixtures() {
+            return this.league.currentRoundFixtures();
+        },
     },
 }
 </script>

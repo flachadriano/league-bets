@@ -1,7 +1,8 @@
 import BaseGridLeague from '../BaseGridLeague';
 import { URL, HEADERS } from './Resources';
+import League from './League';
 
-export default class League extends BaseGridLeague {
+export default class Leagues extends BaseGridLeague {
 
     async loadLeagues() {
         return await fetch(`${URL}/leagues`, HEADERS)
@@ -19,7 +20,8 @@ export default class League extends BaseGridLeague {
             .then(data => data.filter(league => {
                 const leagues = [128, 71, 39, 61, 78, 135, 94, 140];
                 return leagues.includes(league.league.id);
-            }));
+            }))
+            .then(data => data.map(league => new League({ country: league.country, ...league.league })));
     }
 
 }
