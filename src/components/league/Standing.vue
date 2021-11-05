@@ -11,7 +11,7 @@
             <span>{{ standing.goals.for }}:{{ standing.goals.against }} Goals</span>
         </div>
         <div>
-            <span>{{ standing.goals.for/standing.played }}:{{ standing.goals.against/standing.played }} Goals per match</span>
+            <span>{{ (standing.goals.for/standing.played).toFixed(2) }}:{{ (standing.goals.against/standing.played).toFixed(2) }} Goals per match</span>
         </div>
     </div>
 </template>
