@@ -94,7 +94,7 @@ export default class League extends BaseLeague {
     }
 
     lastAwayMatches(teamId, quantity = 5) {
-        const fixtures = this.fixtures.filter(f => f.fixture.status.short == 'FT' && f.teams.away.id);
+        const fixtures = this.fixtures.filter(f => f.fixture.status.short == 'FT' && f.teams.away.id == teamId);
         let start = fixtures.length - quantity;
         if (start < 0) start = 0;
         return fixtures.slice(start).map(f => new Match(f, teamId));
