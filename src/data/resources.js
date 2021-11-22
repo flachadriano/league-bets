@@ -1,12 +1,14 @@
 import footballdbLeagues from './footballdb/Leagues'
 import footballDataLeagues from './football-data/Leagues'
 import apiFootballLeagues from './api-football/leagues';
-import GridLeagues from './grid-api-football/Leagues';
+import GridApiFootballLeagues from './grid-api-football/Leagues';
+import GridFootballData from './grid-football-data/Leagues';
 
 import FootballDbLeague from './footballdb/League';
 import FootballDataLeague from './football-data/League';
 import ApiFootballLeague from './api-football/league';
-import GridLeague from './grid-api-football/League';
+import GridApiFootballLeague from './grid-api-football/League';
+import GridFootballDataLeague from './grid-football-data/League';
 
 import FootballDbClub from './footballdb/Club';
 import FootballDataClub from './football-data/Club';
@@ -19,6 +21,7 @@ export const apis = {
     footballData: 'football-data',
     apifootball: 'api-football',
     grid: 'grid',
+    gridFootballData: 'gridFootballData',
 };
 
 export function loadLeagues(api) {
@@ -30,7 +33,9 @@ export function loadLeagues(api) {
         case apis.apifootball:
             return apiFootballLeagues;
         case apis.grid:
-            return new GridLeagues();
+            return new GridApiFootballLeagues();
+        case apis.gridFootballData:
+            return new GridFootballData();
     }
 }
 
@@ -44,7 +49,9 @@ export function loadLeagueResources(api, league) {
             case apis.apifootball:
                 return new ApiFootballLeague(league);
             case apis.grid:
-                return new GridLeague(league);
+                return new GridApiFootballLeague(league);
+            case apis.gridFootballData:
+                return new GridFootballDataLeague(league);
             default:
                 alert('No API found');
         }

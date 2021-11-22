@@ -6,6 +6,9 @@ export default class BaseLeague {
         this.standing = standing || [];
         this.teams = teams;
         this.matches = matches || [];
+
+        this.currentRound = 'Not implemented';
+        this.nextRoundName = 'Not implemented';
     }
 
     static validateClubs(clubs) {
@@ -24,6 +27,36 @@ export default class BaseLeague {
     async loadClubs() {
         console.error('loadClubs not implemented.');
         return new Promise(resolve => resolve([]));
+    }
+
+    currentRoundName() {
+        console.error('currentRoundName not implemented.');
+        return 'Not implemented';
+    }
+
+    currentRoundFixtures() {
+        console.error('currentRoundFixtures not implemented.');
+        return [];
+    }
+
+    teamStanding() {
+        console.error('teamStanding not implemented.');
+        return {};
+    }
+
+    lastHomeMatches() {
+        console.error('lastHomeMatches not implemented.');
+        return [];
+    }
+
+    lastAwayMatches() {
+        console.error('lastAwayMatches not implemented.');
+        return [];
+    }
+
+    lastMatches() {
+        console.error('lastMatches not implemented.');
+        return [];
     }
 
 }

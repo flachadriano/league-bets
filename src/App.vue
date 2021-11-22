@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <Leagues></Leagues>
-    <League v-if="api != 'grid' && !hasSelectedClub"></League>
-    <GridLeague v-if="api == 'grid' && !hasSelectedLeague"></GridLeague>
-    <Info v-if="api == 'grid' && hasSelectedLeague"></Info>
-    <LeagueGames v-if="api == 'grid' && hasSelectedLeague"></LeagueGames>
+    <League v-if="!isGridApi && !hasSelectedClub"></League>
+    <GridLeague v-if="isGridApi && !hasSelectedLeague"></GridLeague>
+    <Info v-if="isGridApi && hasSelectedLeague"></Info>
+    <LeagueGames v-if="isGridApi && hasSelectedLeague"></LeagueGames>
     <div class="d-flex justify-content-center">
       <Club v-if="hasSelectedClub" :club="club" @close="selectClub"></Club>
       <Club v-if="Object.keys(compareClub).length > 0" :club="compareClub" @close="selectCompareClub"></Club>
@@ -33,7 +33,7 @@ export default {
   },
   computed: {
       ...mapGetters([
-        'api',
+        'isGridApi',
         'hasSelectedLeague',
         'hasSelectedClub',
         'club',

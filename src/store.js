@@ -23,6 +23,7 @@ export default new Vuex.Store({
     getters: {
         apis: state => state.apis,
         api: state => state.api,
+        isGridApi: state => state.api && state.api.toString().startsWith('grid'),
         leagues: state => state.leagues,
         leaguesList: state => state.leaguesList,
         league: state => state.league,
@@ -44,7 +45,7 @@ export default new Vuex.Store({
             state.club = {};
             state.compareClub = {};
             
-            if (api == 'grid') {
+            if (api.startsWith('grid')) {
                 loadLeagues(state.api).loadLeagues().then(leagues => state.leagues = leagues);
                 state.league = {};
             } else {
