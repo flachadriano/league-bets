@@ -1,12 +1,12 @@
 import footballdbLeagues from './footballdb/Leagues'
 import footballDataLeagues from './football-data/Leagues'
 import apiFootballLeagues from './api-football/leagues';
-import GridLeagues from './grid/Leagues';
+import GridLeagues from './grid-api-football/Leagues';
 
 import FootballDbLeague from './footballdb/League';
 import FootballDataLeague from './football-data/League';
 import ApiFootballLeague from './api-football/league';
-import GridLeague from './grid/League';
+import GridLeague from './grid-api-football/League';
 
 import FootballDbClub from './footballdb/Club';
 import FootballDataClub from './football-data/Club';

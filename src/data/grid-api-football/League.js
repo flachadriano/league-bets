@@ -1,7 +1,7 @@
 import BaseLeague from '../BaseLeague';
 import { URL, HEADERS } from './Resources';
 import { SEASON } from '../resources';
-import Match from '../grid/Match';
+import Match from '../grid-api-football/Match';
 
 export default class League extends BaseLeague {
 
