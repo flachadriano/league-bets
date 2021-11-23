@@ -32,26 +32,43 @@ export default class League extends BaseLeague {
         return `Round ${this.currentRound}`;
     }
 
-    currentRoundFixtures() {
-        this.loadStanding();
+    async currentRoundFixtures() {
+        const loadStanding = () => {
+            const standingURL = `${URL}/competitions/${this.id}/standings`;
+            return fetch(standingURL, HEADERS).then(r => r.json())
+                .then(data => this.standing = data.standings[0].table);
+        }
+    
+        const loadRound = (roundId) => {
+            const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${roundId}`;
+            return fetch(nextRoundURL, HEADERS).then(r => r.json());
+        }
 
-        const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${this.currentRound+1}`;
-        fetch(nextRoundURL, HEADERS).then(r => r.json())
-            .then(data => this.nextRoundFixtures = data.matches.map(match => new Match(match)));
-
-        const currentRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${this.currentRound}`;
-        return fetch(currentRoundURL, HEADERS).then(r => r.json())
-            .then(data => data.matches.map(match => new Match(match)));
+        await loadStanding();
+        await loadRound(this.currentRound + 1).then(data => this.nextRoundFixtures = data.matches.map(match => new Match(match)));
+        return loadRound(this.currentRound).then(data => data.matches.map(match => new Match(match)));
     }
 
-    loadStanding() {
-        const standingURL = `${URL}/competitions/${this.id}/standings`;
-        fetch(standingURL, HEADERS).then(r => r.json())
-            .then(data => this.standing = data.standings[0]);
-    }
-
-    teamStanding() {
-        return this.standing;
+    teamStanding(teamId) {
+        console.log(this.standing);
+        const team = this.standing.find(stand => stand.team.id = teamId);
+        console.log(team);
+        return {
+            rank: team.position,
+            points: team.points,
+            all: {
+                played: team.playedGames,
+                win: team.won,
+                draw: team.draw,
+                lose: team.lost,
+                goals: {
+                    for: team.goalsFor,
+                    against: team.goalsAgainst
+                }
+            },
+            home: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } },
+            away: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } }
+        };
     }
 
 }

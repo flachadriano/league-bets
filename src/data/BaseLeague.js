@@ -41,7 +41,13 @@ export default class BaseLeague {
 
     teamStanding() {
         console.error('teamStanding not implemented.');
-        return {};
+        return { 
+            rank: 0,
+            points: 0,
+            all: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } },
+            home: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } },
+            away: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } }
+        };
     }
 
     lastHomeMatches() {

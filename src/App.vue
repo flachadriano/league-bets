@@ -4,7 +4,7 @@
     <League v-if="!isGridApi && !hasSelectedClub"></League>
     <GridLeague v-if="isGridApi && !hasSelectedLeague"></GridLeague>
     <Info v-if="isGridApi && hasSelectedLeague"></Info>
-    <LeagueGames v-if="isGridApi && hasSelectedLeague"></LeagueGames>
+    <GridLeagueGames v-if="isGridApi && hasSelectedLeague"></GridLeagueGames>
     <div class="d-flex justify-content-center">
       <Club v-if="hasSelectedClub" :club="club" @close="selectClub"></Club>
       <Club v-if="Object.keys(compareClub).length > 0" :club="compareClub" @close="selectCompareClub"></Club>
@@ -19,7 +19,7 @@ import Info from './components/league/Info.vue';
 import League from './components/League';
 import Club from './components/Club';
 import GridLeague from './components/GridLeague.vue';
-import LeagueGames from './components/LeagueGames.vue';
+import GridLeagueGames from './components/GridLeagueGames.vue';
 
 export default {
   name: 'App',
@@ -29,7 +29,7 @@ export default {
     League,
     Club,
     GridLeague,
-    LeagueGames,
+    GridLeagueGames,
   },
   computed: {
       ...mapGetters([
