@@ -40,30 +40,48 @@ export default class League extends BaseLeague {
         }
     
         const loadRound = (roundId) => {
+            const getTeamLogo = (teamId) => {
+                const stand = this.standing.find(stand => stand.team.id == teamId);
+                return stand.team.crestUrl;
+            };
+
+            const setMatchLogo = (match) => {
+                return {
+                    ...match,
+                    homeTeam: {
+                        ...match.homeTeam,
+                        logo: getTeamLogo(match.homeTeam.id),
+                    },
+                    awayTeam: {
+                        ...match.awayTeam,
+                        logo: getTeamLogo(match.awayTeam.id),
+                    }
+                };
+            };
+
             const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${roundId}`;
-            return fetch(nextRoundURL, HEADERS).then(r => r.json());
+            return fetch(nextRoundURL, HEADERS).then(r => r.json())
+                .then(data => data.matches.map(m => setMatchLogo(m)));
         }
 
         await loadStanding();
-        await loadRound(this.currentRound + 1).then(data => this.nextRoundFixtures = data.matches.map(match => new Match(match)));
-        return loadRound(this.currentRound).then(data => data.matches.map(match => new Match(match)));
+        await loadRound(this.currentRound + 1).then(matches => this.nextRoundFixtures = matches.map(match => new Match(match)));
+        return loadRound(this.currentRound).then(matches => matches.map(match => new Match(match)));
     }
 
     teamStanding(teamId) {
-        console.log(this.standing);
-        const team = this.standing.find(stand => stand.team.id = teamId);
-        console.log(team);
+        const stand = this.standing.find(stand => stand.team.id == teamId);
         return {
-            rank: team.position,
-            points: team.points,
+            rank: stand.position,
+            points: stand.points,
             all: {
-                played: team.playedGames,
-                win: team.won,
-                draw: team.draw,
-                lose: team.lost,
+                played: stand.playedGames,
+                win: stand.won,
+                draw: stand.draw,
+                lose: stand.lost,
                 goals: {
-                    for: team.goalsFor,
-                    against: team.goalsAgainst
+                    for: stand.goalsFor,
+                    against: stand.goalsAgainst
                 }
             },
             home: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } },

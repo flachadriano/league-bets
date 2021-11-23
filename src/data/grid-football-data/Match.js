@@ -10,10 +10,12 @@ export default class Match {
 
         this.homeId = match.homeTeam.id;
         this.home = match.homeTeam.name;
+        this.homeLogo = match.homeTeam.logo;
         this.homeScore = match.score.fullTime.homeTeam;
 
         this.awayId = match.awayTeam.id;
         this.away = match.awayTeam.name;
+        this.awayLogo = match.awayTeam.logo;
         this.awayScore = match.score.fullTime.awayTeam;
 
         if (teamId) {
