@@ -5,7 +5,7 @@
             @click.prevent="selectGridLeague(league.league)"
             v-for="league in leagues" :key="league.id">
             <div class="align-content-center">
-                <img :src="league.logo">
+                <img :src="league.logo" height="96px" width="96px">
             </div>
             <div class="align-content-center">
                 <img :src="league.country.flag" height="24px" width="24px">

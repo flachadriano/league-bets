@@ -21,9 +21,9 @@ export default class League extends BaseLeague {
         super(league);
 
         this.id = league.id;
-        this.logo = league.logo;
+        this.logo = league.emblemUrl || league.area.ensignUrl;
         this.name = league.name;
-        this.country = league.country;
+        this.country = { flag: league.area.ensignUrl };
         this.currentRound = new Number(this.league.currentSeason.currentMatchday);
         this.nextRoundName = `Round ${this.currentRound + 1}`;
     }
@@ -64,6 +64,13 @@ export default class League extends BaseLeague {
                 .then(data => data.matches.map(m => setMatchLogo(m)));
         }
 
+        const loadMatches = () => {
+            const nextRoundURL = `${URL}/competitions/${this.id}/matches`;
+            return fetch(nextRoundURL, HEADERS).then(r => r.json())
+                .then(data => this.fixtures = data.matches.map(m => new Match(m)));
+        }
+
+        await loadMatches();
         await loadStanding();
         await loadRound(this.currentRound + 1).then(matches => this.nextRoundFixtures = matches.map(match => new Match(match)));
         return loadRound(this.currentRound).then(matches => matches.map(match => new Match(match)));
@@ -87,6 +94,27 @@ export default class League extends BaseLeague {
             home: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } },
             away: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } }
         };
+    }
+
+    lastMatches(teamId, quantity = 6) {
+        return this.fixtures
+            .filter(m => m.homeId == teamId || m.awayId == teamId)
+            .splice(0, quantity)
+            .map(m => m.validateResult(teamId));
+    }
+
+    lastHomeMatches(teamId, quantity = 6) {
+        return this.fixtures
+            .filter(m => m.homeId == teamId)
+            .splice(0, quantity)
+            .map(m => m.validateResult(teamId));
+    }
+
+    lastAwayMatches(teamId, quantity = 6) {
+        return this.fixtures
+            .filter(m => m.awayId == teamId)
+            .splice(0, quantity)
+            .map(m => m.validateResult(teamId));
     }
 
 }

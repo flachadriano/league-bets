@@ -18,14 +18,17 @@ export default class Match {
         this.awayLogo = match.awayTeam.logo;
         this.awayScore = match.score.fullTime.awayTeam;
 
-        if (teamId) {
-            if (teamId == this.homeId) {
-                this.win = match.score.winner == 'HOME_TEAM';
-            } else {
-                this.win = match.score.winner == 'AWAY_TEAM';
-            }
-            this.draw = match.score.winner == 'DRAW';
+        teamId && this.validateResult(teamId);
+    }
+
+    validateResult(teamId) {
+        if (teamId == this.homeId) {
+            this.win = this.match.score.winner == 'HOME_TEAM';
+        } else {
+            this.win = this.match.score.winner == 'AWAY_TEAM';
         }
+        this.draw = this.match.score.winner == 'DRAW';
+        return this;
     }
 
 }
