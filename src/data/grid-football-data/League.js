@@ -78,6 +78,35 @@ export default class League extends BaseLeague {
 
     teamStanding(teamId) {
         const stand = this.standing.find(stand => stand.team.id == teamId);
+
+        const homeStanding = () => {
+            const homeMatches = this.lastHomeMatches(teamId);
+            return {
+                played: homeMatches.length,
+                win: homeMatches.filter(m => m.win).length,
+                draw: homeMatches.filter(m => m.draw).length,
+                lose: homeMatches.filter(m => m.lose).length,
+                goals: {
+                    for: homeMatches.map(m => m.homeScore || 0).reduce((a,b)=>a+b, 0),
+                    against: homeMatches.map(m => m.awayScore || 0).reduce((a,b)=>a+b, 0),
+                },
+            };
+        }
+
+        const awayStanding = () => {
+            const awayMatches = this.lastAwayMatches(teamId);
+            return {
+                played: awayMatches.length,
+                win: awayMatches.filter(m => m.win).length,
+                draw: awayMatches.filter(m => m.draw).length,
+                lose: awayMatches.filter(m => m.lose).length,
+                goals: {
+                    for: awayMatches.map(m => m.awayScore || 0).reduce((a,b)=>a+b, 0),
+                    against: awayMatches.map(m => m.homeScore || 0).reduce((a,b)=>a+b, 0),
+                },
+            };
+        }
+        
         return {
             rank: stand.position,
             points: stand.points,
@@ -91,8 +120,8 @@ export default class League extends BaseLeague {
                     against: stand.goalsAgainst
                 }
             },
-            home: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } },
-            away: { played: 0, win: 0, draw: 0, lose: 0, goals: { for: 0, against: 0 } }
+            home: homeStanding(),
+            away: awayStanding(),
         };
     }
 

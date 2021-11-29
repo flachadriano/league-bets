@@ -28,6 +28,11 @@ export default class Match {
             this.win = this.match.score.winner == 'AWAY_TEAM';
         }
         this.draw = this.match.score.winner == 'DRAW';
+        if (this.draw) {
+            this.lose = false;
+        } else {
+            this.lose = !this.win;
+        }
         return this;
     }
 
