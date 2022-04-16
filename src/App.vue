@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex';
 import Leagues from './components/Leagues';
 import Info from './components/league/Info.vue';
 import League from './components/League';
@@ -32,22 +32,22 @@ export default {
     GridLeagueGames,
   },
   computed: {
-      ...mapGetters([
-        'isGridApi',
-        'hasSelectedLeague',
-        'hasSelectedClub',
-        'club',
-        'compareClub',
-        'league',
-      ])
+    ...mapGetters([
+      'isGridApi',
+      'hasSelectedLeague',
+      'hasSelectedClub',
+      'club',
+      'compareClub',
+      'league',
+    ])
   },
   methods: {
     ...mapMutations([
-        'selectClub',
-        'selectCompareClub',
+      'selectClub',
+      'selectCompareClub',
     ])
   }
-}
+};
 </script>
 
 <style>
