@@ -14,32 +14,32 @@
 import NextMatch from './NextMatch';
 
 export default {
-    props: ['club'],
-    components: {
-        NextMatch,
+  props: ['club'],
+  components: {
+    NextMatch,
+  },
+  asyncComputed: {
+    async position() {
+      return await this.club.position();
     },
-    asyncComputed: {
-        async position() {
-            return await this.club.position();
-        },
-        async scored() {
-            return await this.club.scored();
-        },
-        async scoredPerMatch() {
-            return await this.club.scoredPerMatch();
-        },
-        async rankedScore() {
-            return await this.club.rankedScore();
-        },
-        async against() {
-            return await this.club.against();
-        },
-        async againstPerMatch() {
-            return await this.club.againstPerMatch();
-        },
-        async rankedAgainst() {
-            return await this.club.rankedAgainst();
-        },
-    }
-}
+    async scored() {
+      return await this.club.scored();
+    },
+    async scoredPerMatch() {
+      return await this.club.scoredPerMatch();
+    },
+    async rankedScore() {
+      return await this.club.rankedScore();
+    },
+    async against() {
+      return await this.club.against();
+    },
+    async againstPerMatch() {
+      return await this.club.againstPerMatch();
+    },
+    async rankedAgainst() {
+      return await this.club.rankedAgainst();
+    },
+  }
+};
 </script>

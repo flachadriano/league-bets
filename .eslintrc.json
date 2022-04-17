@@ -18,6 +18,9 @@
     ],
     "rules": {
         "semi": ["error", "always"],
-        "comma-dangle": ["error", "only-multiline"]
+        "comma-dangle": ["error", "only-multiline"],
+        "space-before-function-paren": "off",
+        "no-return-assign": "off",
+        "eqeqeq": "off"
     }
 }
