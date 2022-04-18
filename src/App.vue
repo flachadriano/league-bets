@@ -1,35 +1,32 @@
 <template>
   <div id="app">
-    <Leagues></Leagues>
-    <League v-if="!isGridApi && !hasSelectedClub"></League>
+    <TopBar></TopBar>
     <GridLeague v-if="isGridApi && !hasSelectedLeague"></GridLeague>
-    <Info v-if="isGridApi && hasSelectedLeague"></Info>
-    <GridLeagueGames v-if="isGridApi && hasSelectedLeague"></GridLeagueGames>
+    <LeagueHeader v-if="isGridApi && hasSelectedLeague"></LeagueHeader>
+    <LeagueMatches v-if="isGridApi && hasSelectedLeague"></LeagueMatches>
     <div class="d-flex justify-content-center">
-      <Club v-if="hasSelectedClub" :club="club" @close="selectClub"></Club>
-      <Club v-if="Object.keys(compareClub).length > 0" :club="compareClub" @close="selectCompareClub"></Club>
+      <ClubData v-if="hasSelectedClub" :club="club" @close="selectClub"></ClubData>
+      <ClubData v-if="Object.keys(compareClub).length > 0" :club="compareClub" @close="selectCompareClub"></ClubData>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import Leagues from './components/Leagues';
-import Info from './components/league/Info.vue';
-import League from './components/League';
-import Club from './components/Club';
+import TopBar from './components/TopBar';
+import LeagueHeader from './components/LeagueHeader.vue';
+import ClubData from './components/ClubData';
 import GridLeague from './components/GridLeague.vue';
-import GridLeagueGames from './components/GridLeagueGames.vue';
+import LeagueMatches from './components/LeagueMatches.vue';
 
 export default {
   name: 'App',
   components: {
-    Leagues,
-    Info,
-    League,
-    Club,
+    TopBar,
+    LeagueHeader,
+    ClubData,
     GridLeague,
-    GridLeagueGames,
+    LeagueMatches,
   },
   computed: {
     ...mapGetters([

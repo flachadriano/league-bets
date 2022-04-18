@@ -8,20 +8,20 @@
       <span>{{ rank }} - {{ points }} points</span>
     </div>
     <hr>
-    <Standing :fixtures="league.lastMatches(id)" :standing="standing"></Standing>
+    <StandingPosition :fixtures="league.lastMatches(id)" :standing="standing"></StandingPosition>
     <hr>
     <span>Home/Away</span>
-    <Standing :fixtures="homeawaymatches" :standing="standinghomeaway"></Standing>
+    <StandingPosition :fixtures="homeawaymatches" :standing="standinghomeaway"></StandingPosition>
   </div>
 </template>
 
 <script>
-import Standing from './Standing';
+import StandingPosition from './StandingPosition';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    Standing,
+    StandingPosition,
   },
   computed: {
     ...mapGetters([

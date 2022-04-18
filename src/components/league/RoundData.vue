@@ -2,17 +2,17 @@
   <div>
     <h2>{{ title }}</h2>
     <div>
-      <Fixture :fixture="fixture" v-for="fixture in fixtures" :key="fixture.id"></Fixture>
+      <MatchRow :fixture="fixture" v-for="fixture in fixtures" :key="fixture.id"></MatchRow>
     </div>
   </div>
 </template>
 
 <script>
-import Fixture from './Fixture.vue';
+import MatchRow from './MatchRow.vue';
 
 export default {
   components: {
-    Fixture,
+    MatchRow,
   },
   props: ['title', 'fixtures'],
 };

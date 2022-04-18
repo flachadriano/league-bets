@@ -6,20 +6,20 @@
         <span class="ml-2">{{ club.name }}</span>
         <a class="close" href="#" @click.prevent="selectClub">(close)</a>
       </h2>
-      <Statistics :club="club"></Statistics>
+      <StatisticsData :club="club"></StatisticsData>
       <LastMatches :club="club"></LastMatches>
     </div>
   </div>
 </template>
 
 <script>
-import Statistics from './club/Statistics';
+import StatisticsData from './club/StatisticsData';
 import LastMatches from './club/LastMatches';
 
 export default {
   props: ['club'],
   components: {
-    Statistics,
+    StatisticsData,
     LastMatches
   },
   methods: {

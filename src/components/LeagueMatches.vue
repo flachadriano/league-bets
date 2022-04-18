@@ -1,29 +1,29 @@
 <template>
   <div class="d-flex justify-content-center">
-    <Round :key="1"
+    <RoundData :key="1"
       :title="currentRoundName"
       :fixtures="currentRoundFixtures">
-    </Round>
-    <Round class="ml-2 mr-2"
+    </RoundData>
+    <RoundData class="ml-2 mr-2"
       :key="2"
       :title="league.nextRoundName"
       :fixtures="league.nextRoundFixtures">
-    </Round>
-    <Details v-if="hasFixture"
+    </RoundData>
+    <MatchData v-if="hasFixture"
       :fixture="fixture">
-    </Details>
+    </MatchData>
   </div>
 </template>
 
 <script>
-import Round from './league/Round.vue';
-import Details from './league/Details.vue';
+import RoundData from './league/RoundData.vue';
+import MatchData from './league/MatchData.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    Round,
-    Details,
+    RoundData,
+    MatchData,
   },
   computed: {
     ...mapGetters([

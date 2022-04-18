@@ -2,7 +2,7 @@
   <div style="background-color: #666" class="card p-2">
     <h3>Last 6 matches</h3>
     <div class="mb-2">
-      <race :matches="matches.data"></race>
+      <RaceData :matches="matches.data"></RaceData>
     </div>
     <table class="mb-1">
       <thead class="border-bottom">
@@ -72,14 +72,14 @@
 </template>
 
 <script>
-import Race from './Race';
+import RaceData from './RaceData';
 import BaseMatch from '../../data/base-match';
 import LastMatchesProcessor from './LastMatchesProcessor';
 
 export default {
   props: ['club'],
   components: {
-    race: Race
+    RaceData: RaceData
   },
   computed: {
     matches() {

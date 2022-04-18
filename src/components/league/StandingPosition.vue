@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column">
-    <Race class="mb-2" :matches="fixtures"></Race>
+    <RaceData class="mb-2" :matches="fixtures"></RaceData>
     <div>
       <span>{{ standing.played }} P | </span>
       <span>{{ standing.win }} W | </span>
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import Race from '../club/Race.vue';
+import RaceData from '../club/RaceData.vue';
 
 export default {
   components: {
-    Race,
+    RaceData,
   },
   props: ['fixtures', 'standing'],
 };

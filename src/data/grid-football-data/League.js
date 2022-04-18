@@ -23,7 +23,7 @@ export default class League extends BaseLeague {
     this.logo = league.emblemUrl || league.area.ensignUrl;
     this.name = league.name;
     this.country = { flag: league.area.ensignUrl };
-    this.currentRound = new Number(this.league.currentSeason.currentMatchday);
+    this.currentRound = this.league.currentSeason.currentMatchday;
     this.nextRoundName = `Round ${this.currentRound + 1}`;
   }
 
