@@ -4,10 +4,6 @@
     <GridLeague v-if="isGridApi && !hasSelectedLeague"></GridLeague>
     <LeagueHeader v-if="isGridApi && hasSelectedLeague"></LeagueHeader>
     <LeagueMatches v-if="isGridApi && hasSelectedLeague"></LeagueMatches>
-    <div class="d-flex justify-content-center">
-      <ClubData v-if="hasSelectedClub" :club="club" @close="selectClub"></ClubData>
-      <ClubData v-if="Object.keys(compareClub).length > 0" :club="compareClub" @close="selectCompareClub"></ClubData>
-    </div>
   </div>
 </template>
 
@@ -15,7 +11,6 @@
 import { mapGetters, mapMutations } from 'vuex';
 import TopBar from './components/TopBar';
 import LeagueHeader from './components/LeagueHeader.vue';
-import ClubData from './components/ClubData';
 import GridLeague from './components/GridLeague.vue';
 import LeagueMatches from './components/LeagueMatches.vue';
 
@@ -24,7 +19,6 @@ export default {
   components: {
     TopBar,
     LeagueHeader,
-    ClubData,
     GridLeague,
     LeagueMatches,
   },
