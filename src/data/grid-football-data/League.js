@@ -1,4 +1,4 @@
-import BaseLeague from '../BaseLeague';
+import BaseLeague from '../_base/BaseLeague';
 import { URL, HEADERS } from './Resources';
 import Match from './Match';
 
