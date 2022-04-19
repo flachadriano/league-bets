@@ -1,4 +1,4 @@
-import BaseLeague from './BaseLeague';
+import BaseLeague from './_base/BaseLeague';
 
 export default class BaseGridLeague extends BaseLeague {
   async loadLeagues() {

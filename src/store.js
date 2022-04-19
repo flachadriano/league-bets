@@ -6,7 +6,7 @@ import {
   loadLeagueResources,
   loadClubResources
 } from './data/resources';
-import BaseLeague from './data/BaseLeague';
+import BaseLeague from './data/_base/BaseLeague';
 
 Vue.use(Vuex);
 
