@@ -10,6 +10,11 @@ export default class Leagues extends BaseGridLeague {
       .then(data => data.competitions)
       .then(leagues => leagues.filter(league => ['BL1', 'DED', 'BSA', 'PD', 'FL1', 'PPL', 'SA', 'PL'].indexOf(league.code) >= 0))
       .then(leagues => leagues.map(league => new League(new LeagueBuilder()
-        .id(league.id).logo(league.emblemUrl).name(league.name).countryFlag(league.area.ensignUrl).currentRound(league.currentRound).build())));
+        .id(league.id)
+        .logo(league.emblemUrl)
+        .name(league.name)
+        .countryFlag(league.area.ensignUrl)
+        .currentRound(league.currentSeason.currentMatchday)
+        .build())));
   }
 }

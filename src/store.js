@@ -29,6 +29,7 @@ export default new Vuex.Store({
     compareClub: {},
     fixture: {},
     currentRound: 0,
+    currentRoundTitle: 'Round 0'
   },
   getters: {
     apis: state => state.apis,
@@ -46,7 +47,8 @@ export default new Vuex.Store({
     hasSelectedLeague: state => Object.keys(state.league).length > 0,
     hasSelectedClub: state => Object.keys(state.club).length > 0,
     hasFixture: state => Object.keys(state.fixture).length > 0,
-    currentRound: state => state.currentRound,
+    currentRound: state => state.league?.currentRound,
+    currentRoundTitle: state => state.league?.currentRoundTitle,
   },
   mutations: {
     changeApi: (state, apiEl) => {
@@ -94,10 +96,10 @@ export default new Vuex.Store({
       state.fixture = fixture;
     },
     previousRound: (state) => {
-      state.currentRound = state.league.loadPreviousFixture();
+      state.league.loadPreviousFixture();
     },
     nextRound: (state) => {
-      state.currentRound = state.league.loadNextFixture();
+      state.league.loadNextFixture();
     }
   }
 });

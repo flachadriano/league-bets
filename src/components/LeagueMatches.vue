@@ -3,7 +3,7 @@
     <span style="display: none">{{ currentRound }}</span>
     <span @click="reload()" style="font-size: 2.3rem; margin-top: 20px">↺</span>
     <RoundMatches :key="1"
-      :title="currentRoundName"
+      :title="currentRoundTitle"
       :fixtures="currentRoundFixtures">
     </RoundMatches>
   </div>
@@ -21,6 +21,7 @@ export default {
     ...mapGetters([
       'league',
       'currentRound',
+      'currentRoundTitle',
     ])
   },
   methods: {

@@ -25,6 +25,7 @@ export default class {
 
   currentRound(currentRound) {
     this.data.currentRound = currentRound;
+    this.data.currentRoundTitle = `Round ${this.data.currentRound}`;
     return this;
   }
 

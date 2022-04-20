@@ -22,7 +22,8 @@ export default class League extends BaseLeague {
     this.logo = league.logo;
     this.name = league.name;
     this.country = { flag: league.country.flag };
-    this.currentRound = this.league.currentRound;
+    this.currentRound = league.currentRound;
+    this.currentRoundTitle = league.currentRoundTitle;
   }
 
   currentRoundName() {
@@ -137,15 +138,5 @@ export default class League extends BaseLeague {
       .filter(m => m.awayId == teamId)
       .splice(0, quantity)
       .map(m => m.validateResult(teamId));
-  }
-
-  loadPreviousFixture() {
-    this.currentRound -= 1;
-    return this.currentRound;
-  }
-
-  loadNextFixture() {
-    this.currentRound += 1;
-    return this.currentRound;
   }
 }

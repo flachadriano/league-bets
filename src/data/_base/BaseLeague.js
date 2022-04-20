@@ -63,4 +63,14 @@ export default class BaseLeague {
     console.error('lastMatches not implemented.');
     return [];
   }
+
+  loadPreviousFixture() {
+    this.currentRound -= 1;
+    this.currentRoundTitle = `Round ${this.currentRound}`;
+  }
+
+  loadNextFixture() {
+    this.currentRound += 1;
+    this.currentRoundTitle = `Round ${this.currentRound}`;
+  }
 }
