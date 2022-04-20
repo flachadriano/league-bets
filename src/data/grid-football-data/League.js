@@ -1,3 +1,4 @@
+import Cache from '../Cache';
 import BaseLeague from '../_base/BaseLeague';
 import { URL, HEADERS } from './Resources';
 import Match from './Match';
@@ -49,21 +50,18 @@ export default class League extends BaseLeague {
     };
 
     const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${roundId}`;
-    return fetch(nextRoundURL, HEADERS).then(r => r.json())
-      .then(data => data.matches.map(m => setMatchLogo(m)));
+    return Cache.get(nextRoundURL, HEADERS).then(data => data.matches.map(m => setMatchLogo(m)));
   };
 
   async currentRoundFixtures() {
     const loadStanding = () => {
       const standingURL = `${URL}/competitions/${this.id}/standings`;
-      return fetch(standingURL, HEADERS).then(r => r.json())
-        .then(data => this.standing = data.standings[0].table);
+      return Cache.get(standingURL, HEADERS).then(data => this.standing = data.standings[0].table);
     };
 
     const loadMatches = () => {
       const nextRoundURL = `${URL}/competitions/${this.id}/matches`;
-      return fetch(nextRoundURL, HEADERS).then(r => r.json())
-        .then(data => this.fixtures = data.matches.map(m => new Match(m)));
+      return Cache.get(nextRoundURL, HEADERS).then(data => this.fixtures = data.matches.map(m => new Match(m)));
     };
 
     await loadMatches();
