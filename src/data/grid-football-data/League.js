@@ -19,10 +19,10 @@ export default class League extends BaseLeague {
     super(league);
 
     this.id = league.id;
-    this.logo = league.emblemUrl || league.area.ensignUrl;
+    this.logo = league.logo;
     this.name = league.name;
-    this.country = { flag: league.area.ensignUrl };
-    this.currentRound = this.league.currentSeason.currentMatchday;
+    this.country = { flag: league.country.flag };
+    this.currentRound = this.league.currentRound;
   }
 
   currentRoundName() {
