@@ -6,27 +6,20 @@
       :title="currentRoundName"
       :fixtures="currentRoundFixtures">
     </RoundMatches>
-    <MatchData v-if="hasFixture"
-      :fixture="fixture">
-    </MatchData>
   </div>
 </template>
 
 <script>
 import RoundMatches from './league/RoundMatches.vue';
-import MatchData from './league/MatchData.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     RoundMatches,
-    MatchData,
   },
   computed: {
     ...mapGetters([
       'league',
-      'hasFixture',
-      'fixture',
       'currentRound',
     ])
   },
