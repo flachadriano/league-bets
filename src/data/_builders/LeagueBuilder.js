@@ -1,4 +1,4 @@
-export default class {
+export default class LeagueBuilder {
   constructor() {
     this.data = {};
   }

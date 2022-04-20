@@ -30,9 +30,6 @@ export default {
     }
   },
   asyncComputed: {
-    async currentRoundName() {
-      return this.league.currentRoundName();
-    },
     async currentRoundFixtures() {
       return this.league.currentRoundFixtures();
     },

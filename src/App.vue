@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <TopBar></TopBar>
-    <GridLeague v-if="isGridApi && !hasSelectedLeague"></GridLeague>
-    <LeagueHeader v-if="isGridApi && hasSelectedLeague"></LeagueHeader>
-    <LeagueMatches v-if="isGridApi && hasSelectedLeague"></LeagueMatches>
+    <GridLeague v-if="!hasSelectedLeague"></GridLeague>
+    <LeagueHeader v-if="hasSelectedLeague"></LeagueHeader>
+    <LeagueMatches v-if="hasSelectedLeague"></LeagueMatches>
   </div>
 </template>
 
@@ -24,9 +24,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isGridApi',
       'hasSelectedLeague',
-      'hasSelectedClub',
       'club',
       'compareClub',
       'league',

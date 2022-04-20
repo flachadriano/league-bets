@@ -19,11 +19,7 @@ export default new Vuex.Store({
     apis,
     api: [],
     leagues: [],
-    leaguesList: [],
     league: defaultLeague,
-    loadingClubs: false,
-    clubs: [],
-    club: {},
     compareClub: {},
     fixture: {},
     currentRound: 0,
@@ -32,18 +28,12 @@ export default new Vuex.Store({
   getters: {
     apis: state => state.apis,
     api: state => state.api,
-    isGridApi: state => state.api && state.api.toString().startsWith('grid'),
     leagues: state => state.leagues,
-    leaguesList: state => state.leaguesList,
     league: state => state.league,
     leagueId: state => state.league?.league?.key,
-    loadingClubs: state => state.loadingClubs,
-    clubs: state => state.clubs,
-    club: state => state.club,
     fixture: state => state.fixture,
     compareClub: state => state.compareClub,
     hasSelectedLeague: state => Object.keys(state.league).length > 0,
-    hasSelectedClub: state => Object.keys(state.club).length > 0,
     hasFixture: state => Object.keys(state.fixture).length > 0,
     currentRound: state => state.league?.currentRound,
     currentRoundTitle: state => state.league?.currentRoundTitle,
@@ -52,17 +42,9 @@ export default new Vuex.Store({
     changeApi: (state, apiEl) => {
       const api = apiEl.target.value;
       state.api = api;
-      state.clubs = [];
-      state.club = {};
-      state.compareClub = {};
 
-      if (api.startsWith('grid')) {
-        loadLeagues(state.api).loadLeagues().then(leagues => state.leagues = leagues);
-        state.league = {};
-      } else {
-        state.leagues = loadLeagues(api);
-        state.league = defaultLeague;
-      }
+      loadLeagues(state.api).loadLeagues().then(leagues => state.leagues = leagues);
+      state.league = {};
     },
     selectGridLeague: (state, league) => {
       state.league = loadLeagueResources(state.api, league);

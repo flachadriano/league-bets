@@ -16,9 +16,6 @@ export default {
     ...mapGetters([
       'apis',
       'api',
-      'leagues',
-      'leagueId',
-      'loadingClubs',
     ])
   },
   methods: {
