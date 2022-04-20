@@ -8,8 +8,6 @@ export default class League extends BaseLeague {
      * fixtures
      * currentRoundName
      * currentRoundFixtures
-     * nextRoundName
-     * nextRoundFixtures
      */
 
   /**
@@ -24,43 +22,42 @@ export default class League extends BaseLeague {
     this.name = league.name;
     this.country = { flag: league.area.ensignUrl };
     this.currentRound = this.league.currentSeason.currentMatchday;
-    this.nextRoundName = `Round ${this.currentRound + 1}`;
   }
 
   currentRoundName() {
     return `Round ${this.currentRound}`;
   }
 
+  async loadRound(roundId) {
+    const getTeamLogo = (teamId) => {
+      const stand = this.standing.find(stand => stand.team.id == teamId);
+      return stand.team.crestUrl;
+    };
+
+    const setMatchLogo = (match) => {
+      return {
+        ...match,
+        homeTeam: {
+          ...match.homeTeam,
+          logo: getTeamLogo(match.homeTeam.id),
+        },
+        awayTeam: {
+          ...match.awayTeam,
+          logo: getTeamLogo(match.awayTeam.id),
+        }
+      };
+    };
+
+    const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${roundId}`;
+    return fetch(nextRoundURL, HEADERS).then(r => r.json())
+      .then(data => data.matches.map(m => setMatchLogo(m)));
+  };
+
   async currentRoundFixtures() {
     const loadStanding = () => {
       const standingURL = `${URL}/competitions/${this.id}/standings`;
       return fetch(standingURL, HEADERS).then(r => r.json())
         .then(data => this.standing = data.standings[0].table);
-    };
-
-    const loadRound = (roundId) => {
-      const getTeamLogo = (teamId) => {
-        const stand = this.standing.find(stand => stand.team.id == teamId);
-        return stand.team.crestUrl;
-      };
-
-      const setMatchLogo = (match) => {
-        return {
-          ...match,
-          homeTeam: {
-            ...match.homeTeam,
-            logo: getTeamLogo(match.homeTeam.id),
-          },
-          awayTeam: {
-            ...match.awayTeam,
-            logo: getTeamLogo(match.awayTeam.id),
-          }
-        };
-      };
-
-      const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${roundId}`;
-      return fetch(nextRoundURL, HEADERS).then(r => r.json())
-        .then(data => data.matches.map(m => setMatchLogo(m)));
     };
 
     const loadMatches = () => {
@@ -71,8 +68,7 @@ export default class League extends BaseLeague {
 
     await loadMatches();
     await loadStanding();
-    await loadRound(this.currentRound + 1).then(matches => this.nextRoundFixtures = matches.map(match => new Match(match)));
-    return loadRound(this.currentRound).then(matches => matches.map(match => new Match(match)));
+    return this.loadRound(this.currentRound).then(matches => matches.map(match => new Match(match)));
   }
 
   teamStanding(teamId) {
@@ -143,5 +139,15 @@ export default class League extends BaseLeague {
       .filter(m => m.awayId == teamId)
       .splice(0, quantity)
       .map(m => m.validateResult(teamId));
+  }
+
+  loadPreviousFixture() {
+    this.currentRound -= 1;
+    return this.currentRound;
+  }
+
+  loadNextFixture() {
+    this.currentRound += 1;
+    return this.currentRound;
   }
 }

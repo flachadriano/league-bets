@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import TopBar from './components/TopBar';
 import LeagueHeader from './components/LeagueHeader.vue';
 import GridLeague from './components/GridLeague.vue';
@@ -32,12 +32,6 @@ export default {
       'league',
     ])
   },
-  methods: {
-    ...mapMutations([
-      'selectClub',
-      'selectCompareClub',
-    ])
-  }
 };
 </script>
 

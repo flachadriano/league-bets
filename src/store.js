@@ -28,6 +28,7 @@ export default new Vuex.Store({
     club: {},
     compareClub: {},
     fixture: {},
+    currentRound: 0,
   },
   getters: {
     apis: state => state.apis,
@@ -45,6 +46,7 @@ export default new Vuex.Store({
     hasSelectedLeague: state => Object.keys(state.league).length > 0,
     hasSelectedClub: state => Object.keys(state.club).length > 0,
     hasFixture: state => Object.keys(state.fixture).length > 0,
+    currentRound: state => state.currentRound,
   },
   mutations: {
     changeApi: (state, apiEl) => {
@@ -88,24 +90,14 @@ export default new Vuex.Store({
     closeLeague: (state) => {
       state.league = {};
     },
-    selectClub: (state, club) => {
-      if (typeof club === 'object' && club.name) {
-        state.club = club;
-      } else {
-        state.club = {};
-      }
-      state.compareClub = {};
-    },
-    selectCompareClub: (state, clubName) => {
-      if (typeof clubName === 'string' && clubName) {
-        const club = state.clubs.find(c => c.name == clubName);
-        state.compareClub = club;
-      } else {
-        state.compareClub = {};
-      }
-    },
     selectFixture: (state, fixture) => {
       state.fixture = fixture;
     },
+    previousRound: (state) => {
+      state.currentRound = state.league.loadPreviousFixture();
+    },
+    nextRound: (state) => {
+      state.currentRound = state.league.loadNextFixture();
+    }
   }
 });

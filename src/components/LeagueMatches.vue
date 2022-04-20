@@ -1,14 +1,11 @@
 <template>
   <div class="d-flex justify-content-center">
-    <RoundData :key="1"
+    <span style="display: none">{{ currentRound }}</span>
+    <span @click="reload()" style="font-size: 2.3rem; margin-top: 20px">↺</span>
+    <RoundMatches :key="1"
       :title="currentRoundName"
       :fixtures="currentRoundFixtures">
-    </RoundData>
-    <RoundData class="ml-2 mr-2"
-      :key="2"
-      :title="league.nextRoundName"
-      :fixtures="league.nextRoundFixtures">
-    </RoundData>
+    </RoundMatches>
     <MatchData v-if="hasFixture"
       :fixture="fixture">
     </MatchData>
@@ -16,13 +13,13 @@
 </template>
 
 <script>
-import RoundData from './league/RoundData.vue';
+import RoundMatches from './league/RoundMatches.vue';
 import MatchData from './league/MatchData.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    RoundData,
+    RoundMatches,
     MatchData,
   },
   computed: {
@@ -30,7 +27,13 @@ export default {
       'league',
       'hasFixture',
       'fixture',
+      'currentRound',
     ])
+  },
+  methods: {
+    reload() {
+      this.$asyncComputed.currentRoundFixtures.update();
+    }
   },
   asyncComputed: {
     async currentRoundName() {
