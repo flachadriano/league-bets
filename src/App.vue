@@ -25,9 +25,6 @@ export default {
   computed: {
     ...mapGetters([
       'hasSelectedLeague',
-      'club',
-      'compareClub',
-      'league',
     ])
   },
 };

@@ -29,6 +29,11 @@ export default class LeagueBuilder {
     return this;
   }
 
+  currentRoundFixtures(currentRoundFixturesFn) {
+    this.data.currentRoundFixtures = currentRoundFixturesFn;
+    return this;
+  }
+
   build() {
     return this.data;
   }
