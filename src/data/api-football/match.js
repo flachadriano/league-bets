@@ -1,4 +1,4 @@
-import BaseMatch from '../base-match';
+import BaseMatch from '../_base/BaseMatch';
 
 export default class Match extends BaseMatch {
   constructor(data, club) {

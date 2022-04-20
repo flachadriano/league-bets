@@ -1,4 +1,4 @@
-import BaseClub from '../BaseClub';
+import BaseClub from '../_base/BaseClub';
 import Match from './match';
 
 export default class Club extends BaseClub {

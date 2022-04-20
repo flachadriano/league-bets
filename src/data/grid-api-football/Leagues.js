@@ -1,4 +1,4 @@
-import BaseGridLeague from '../BaseGridLeague';
+import BaseGridLeague from '../_base/BaseGridLeague';
 import { URL, HEADERS } from './Resources';
 import League from './League';
 
