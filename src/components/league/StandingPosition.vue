@@ -13,6 +13,9 @@
     <div>
       <span>{{ (standing.goals.for/standing.played).toFixed(2) }}:{{ (standing.goals.against/standing.played).toFixed(2) }} Goals per match</span>
     </div>
+    <div>
+      <span>{{ fixtures.filter(f => f.homeScore > 0 && f.awayScore > 0).length }} Both teams to score</span>
+    </div>
   </div>
 </template>
 
