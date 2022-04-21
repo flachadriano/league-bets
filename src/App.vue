@@ -18,8 +18,8 @@ export default {
   name: 'App',
   components: {
     TopBar,
-    LeagueHeader,
     GridLeague,
+    LeagueHeader,
     LeagueMatches,
   },
   computed: {

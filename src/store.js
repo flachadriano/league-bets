@@ -20,10 +20,7 @@ export default new Vuex.Store({
     api: [],
     leagues: [],
     league: defaultLeague,
-    compareClub: {},
     fixture: {},
-    currentRound: 0,
-    currentRoundTitle: 'Round 0'
   },
   getters: {
     apis: state => state.apis,
@@ -38,26 +35,29 @@ export default new Vuex.Store({
   },
   mutations: {
     changeApi: (state, apiEl) => {
-      const api = apiEl.target.value;
-      state.api = api;
-
+      state.api = apiEl.target.value;
       loadLeagues(state.api).loadLeagues().then(leagues => state.leagues = leagues);
       state.league = {};
+      state.fixture = {};
     },
     selectGridLeague: (state, league) => {
       state.league = loadLeagueResources(state.api, league);
+      state.fixture = {};
     },
     closeLeague: (state) => {
       state.league = {};
+      state.fixture = {};
     },
     selectFixture: (state, fixture) => {
       state.fixture = fixture;
     },
     previousRound: (state) => {
       state.league.loadPreviousFixture();
+      state.fixture = {};
     },
     nextRound: (state) => {
       state.league.loadNextFixture();
+      state.fixture = {};
     }
   }
 });
