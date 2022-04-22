@@ -33,11 +33,6 @@ export default class League extends BaseLeague {
     };
 
     const loadMatches = () => {
-      const nextRoundURL = `${URL}/competitions/${this.id}/matches`;
-      return Cache.get(nextRoundURL, HEADERS).then(data => this.fixtures = data.matches.map(m => new Match(m)));
-    };
-
-    const loadRound = (roundId) => {
       const getTeamLogo = (teamId) => {
         const stand = this.standing.find(stand => stand.team.id == teamId);
         return stand.team.crestUrl;
@@ -46,6 +41,7 @@ export default class League extends BaseLeague {
       const setMatchLogo = (match) => {
         return {
           ...match,
+          round: match.matchday,
           homeTeam: {
             ...match.homeTeam,
             logo: getTeamLogo(match.homeTeam.id),
@@ -57,12 +53,12 @@ export default class League extends BaseLeague {
         };
       };
 
-      const nextRoundURL = `${URL}/competitions/${this.id}/matches?matchday=${roundId}`;
-      return Cache.get(nextRoundURL, HEADERS).then(data => data.matches.map(m => setMatchLogo(m)));
+      const nextRoundURL = `${URL}/competitions/${this.id}/matches`;
+      return Cache.get(nextRoundURL, HEADERS).then(data => this.fixtures = data.matches.map(m => new Match(setMatchLogo(m))));
     };
 
-    await loadMatches();
     await loadStanding();
-    return loadRound(this.currentRound).then(matches => matches.map(match => new Match(match)));
+    await loadMatches();
+    return Promise.resolve(this.fixtures.filter(m => m.round == this.currentRound));
   }
 }

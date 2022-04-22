@@ -3,6 +3,7 @@ export default class Match {
     this.match = match;
 
     this.id = match.id;
+    this.round = match.round;
     this.date = new Date(match.utcDate);
     const options = { weekday: 'short', month: 'short', day: 'numeric' };
     this.dateStr = this.date.toLocaleString('en-US', options);
