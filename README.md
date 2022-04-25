@@ -27,3 +27,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## How to add a league
 
 Add inside the file `src/data/resources.js` inside `apis`.
+
+Create a folder on: data. With the name of the new API
+
+Create a file with the name Leagues and implements the class BaseGridLeague (on _base)

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import RaceData from '../club/RaceData.vue';
+import RaceData from './RaceData.vue';
 
 export default {
   components: {
