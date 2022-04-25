@@ -34,6 +34,16 @@ export default class LeagueBuilder {
     return this;
   }
 
+  loadStanding(loadStandingFn) {
+    this.data.loadStanding = loadStandingFn;
+    return this;
+  }
+
+  loadMatches(loadMatchesFn) {
+    this.data.loadMatches = loadMatchesFn;
+    return this;
+  }
+
   build() {
     return this.data;
   }

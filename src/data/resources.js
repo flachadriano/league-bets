@@ -1,14 +1,15 @@
+import BaseLeague from './_base/BaseLeague';
+
 import footballdbLeagues from './footballdb/Leagues';
 import footballDataLeagues from './football-data/Leagues';
 import apiFootballLeagues from './api-football/leagues';
 import GridApiFootballLeagues from './grid-api-football/Leagues';
 import GridFootballData from './grid-football-data/Leagues';
 
-import FootballDbLeague from './footballdb/League';
-import FootballDataLeague from './football-data/League';
-import ApiFootballLeague from './api-football/league';
-import GridApiFootballLeague from './grid-api-football/League';
-import GridFootballDataLeague from './grid-football-data/League';
+// import FootballDbLeague from './footballdb/League';
+// import FootballDataLeague from './football-data/League';
+// import ApiFootballLeague from './api-football/league';
+// import GridApiFootballLeague from './grid-api-football/League';
 
 import FootballDbClub from './footballdb/Club';
 import FootballDataClub from './football-data/Club';
@@ -39,22 +40,25 @@ export function loadLeagues(api) {
   }
 }
 
-export function loadLeagueResources(api, league) {
+export async function loadLeagueResources(api, league) {
+  console.log(league);
   if (league) {
-    switch (api) {
-      case apis.footballdb:
-        return new FootballDbLeague(league);
-      case apis.footballData:
-        return new FootballDataLeague(league);
-      case apis.apifootball:
-        return new ApiFootballLeague(league);
-      case apis.grid:
-        return new GridApiFootballLeague(league);
-      case apis.gridFootballData:
-        return new GridFootballDataLeague(league);
-      default:
-        alert('No API found');
-    }
+    const l = new BaseLeague(league);
+    await l.currentRoundFixtures();
+    return l;
+    // switch (api) {
+    //   case apis.footballdb:
+    //     return new FootballDbLeague(league);
+    //   case apis.footballData:
+    //     return new FootballDataLeague(league);
+    //   case apis.apifootball:
+    //     return new ApiFootballLeague(league);
+    //   case apis.grid:
+    //     return new GridApiFootballLeague(league);
+    //   case apis.gridFootballData:
+    //   default:
+    //     alert('No API found');
+    // }
   }
 }
 

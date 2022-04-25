@@ -6,13 +6,24 @@ export default class BaseLeague {
     this.teams = teams;
     this.matches = matches || [];
 
-    this.currentRound = 'Not implemented';
-    this.nextRoundName = 'Not implemented';
+    this.id = league.id;
+    this.logo = league.logo;
+    this.name = league.name;
+    this.country = { flag: league.country.flag };
+    this.currentRound = league.currentRound;
+    this.currentRoundTitle = league.currentRoundTitle;
+    this.loadStanding = league.loadStanding;
+    this.loadMatches = league.loadMatches;
   }
 
-  currentRoundFixtures() {
-    console.error('currentRoundFixtures not implemented.');
-    return [];
+  async currentRoundFixtures() {
+    console.log('loading');
+    this.standing = await this.loadStanding();
+    console.log('loading', this.standing);
+    this.fixtures = await this.loadMatches(this.standing);
+    console.log('loading', this.fixtures);
+    console.log(this.currentRound);
+    return Promise.resolve(this.fixtures.filter(m => m.round == this.currentRound));
   }
 
   lastMatches(teamId, quantity = 6) {
