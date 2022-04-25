@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import {
   apis,
   loadLeagues,
-//  loadLeagueResources,
 } from './data/resources';
 
 Vue.use(Vuex);
@@ -36,17 +35,12 @@ export default new Vuex.Store({
   mutations: {
     changeApi: (state, apiEl) => {
       state.api = apiEl.target.value;
-      loadLeagues(state.api).loadLeagues().then(leagues => {
-        state.leagues = leagues;
-        console.log(leagues);
-      });
+      loadLeagues(state.api).loadLeagues().then(leagues => state.leagues = leagues);
       state.league = {};
       state.fixture = {};
     },
-    selectGridLeague: (state, league) => {
-      // state.league = loadLeagueResources(state.api, league);
+    selectLeague: (state, league) => {
       state.league = state.leagues.find(l => l.id == league.id);
-      console.log(state.league);
       state.fixture = {};
     },
     closeLeague: (state) => {

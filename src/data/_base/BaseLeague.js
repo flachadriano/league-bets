@@ -17,12 +17,8 @@ export default class BaseLeague {
   }
 
   async currentRoundFixtures() {
-    console.log('loading');
     this.standing = await this.loadStanding();
-    console.log('loading', this.standing);
     this.fixtures = await this.loadMatches(this.standing);
-    console.log('loading', this.fixtures);
-    console.log(this.currentRound);
     return Promise.resolve(this.fixtures.filter(m => m.round == this.currentRound));
   }
 
