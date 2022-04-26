@@ -20,6 +20,7 @@ export default new Vuex.Store({
     leagues: [],
     league: defaultLeague,
     fixture: {},
+    typeLeagueData: 1,
   },
   getters: {
     apis: state => state.apis,
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     hasFixture: state => Object.keys(state.fixture).length > 0,
     currentRound: state => state.league?.currentRound,
     currentRoundTitle: state => state.league?.currentRoundTitle,
+    typeLeagueData: state => state.typeLeagueData,
   },
   mutations: {
     changeApi: (state, apiEl) => {
@@ -57,6 +59,9 @@ export default new Vuex.Store({
     nextRound: (state) => {
       state.league.loadNextFixture();
       state.fixture = {};
-    }
+    },
+    changeTypeLeagueData: (state, type) => {
+      state.typeLeagueData = type;
+    },
   }
 });
