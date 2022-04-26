@@ -12,15 +12,17 @@ export default class Leagues extends BaseGridLeague {
       const stand = standing.find(stand => stand.team.id == teamId);
       return stand.team.crestUrl;
     };
+    const options = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', hour12: false, minute: 'numeric' };
 
     return new MatchBuilder()
-      .dateStr(match.utcDate)
+      .dateStr(new Date(match.utcDate).toLocaleString('en-US', options))
       .round(match.matchday)
       .homeId(match.homeTeam.id)
       .home(match.homeTeam.name)
       .homeLogo(getTeamLogo(match.homeTeam.id))
       .homeScore(match.score.fullTime.homeTeam)
       .awayId(match.awayTeam.id)
+      .away(match.awayTeam.name)
       .awayLogo(getTeamLogo(match.awayTeam.id))
       .awayScore(match.score.fullTime.awayTeam)
       .build();

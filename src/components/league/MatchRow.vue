@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="d-flex flex-column">
-      <span>{{ fixture.homeScore }}</span>
+      <span class="mb-1">{{ fixture.homeScore }}</span>
       <span>{{ fixture.awayScore }}</span>
     </div>
   </div>
