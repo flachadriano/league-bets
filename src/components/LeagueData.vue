@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center" >
-      <RoundMatches v-if="typeLeagueData == 1" :title="currentRoundTitle"></RoundMatches>
+      <RoundMatches v-if="typeLeagueData == 1"></RoundMatches>
       <LeagueStatistics v-if="typeLeagueData == 2"></LeagueStatistics>
     </div>
   </div>
@@ -36,8 +36,6 @@ export default {
   computed: {
     ...mapGetters([
       'league',
-      'currentRound',
-      'currentRoundTitle',
       'typeLeagueData',
     ])
   },

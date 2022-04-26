@@ -2,7 +2,7 @@
   <div>
     <h2>
       <span @click="previousRound()" style="font-size: 4rem">←</span>
-      {{ title }}
+      {{ currentRoundTitle }}
       <span @click="nextRound()" style="font-size: 4rem">→</span>
     </h2>
     <div class="d-flex">
@@ -29,6 +29,7 @@ export default {
       'league',
       'hasFixture',
       'fixture',
+      'currentRoundTitle',
     ])
   },
   methods: {
@@ -46,6 +47,5 @@ export default {
       return this.league.currentRoundFixtures();
     },
   },
-  props: ['title'],
 };
 </script>
