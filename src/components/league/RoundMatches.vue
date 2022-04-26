@@ -5,7 +5,7 @@
       {{ title }}
       <span @click="nextRound()" style="font-size: 4rem">→</span>
     </h2>
-    <div style="display: flex">
+    <div class="d-flex">
       <div>
         <MatchRow :fixture="fixture" v-for="fixture in fixtures" :key="fixture.id"></MatchRow>
       </div>

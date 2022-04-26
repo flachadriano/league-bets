@@ -2,7 +2,7 @@
   <div class="d-flex flex-wrap">
     <a class="d-flex flex-column ml-2 mb-5"
       style="min-width: 200px"
-      @click.prevent="selectLeague(league.league)"
+      @click.prevent="selectLeague(league)"
       v-for="league in leagues" :key="league.id">
       <div class="align-content-center">
         <img :src="league.logo" height="96px" width="96px">

@@ -1,19 +1,6 @@
 export default class BaseLeague {
-  constructor(league, standing, teams, matches) {
-    this.league = league;
-    this.data = league;
-    this.standing = standing || [];
-    this.teams = teams;
-    this.matches = matches || [];
-
-    this.id = league.id;
-    this.logo = league.logo;
-    this.name = league.name;
-    this.country = { flag: league.country.flag };
-    this.currentRound = league.currentRound;
-    this.currentRoundTitle = league.currentRoundTitle;
-    this.loadStanding = league.loadStanding;
-    this.loadMatches = league.loadMatches;
+  constructor(data) {
+    Object.keys(data).forEach(k => this[k] = data[k]);
   }
 
   async currentRoundFixtures() {
@@ -56,30 +43,20 @@ export default class BaseLeague {
   teamStanding(teamId) {
     const stand = this.standing.find(stand => stand.team.id == teamId);
 
-    const homeStanding = () => {
-      const homeMatches = this.lastHomeMatches(teamId);
+    const homeAwayStanding = (home) => {
+      let matches = this.lastHomeMatches(teamId);
+      if (!home) {
+        matches = this.lastAwayMatches(teamId);
+      }
       return {
-        played: homeMatches.length,
-        win: homeMatches.filter(m => m.win).length,
-        draw: homeMatches.filter(m => m.draw).length,
-        lose: homeMatches.filter(m => m.lose).length,
+        played: matches.length,
+        win: matches.filter(m => m.win).length,
+        draw: matches.filter(m => m.draw).length,
+        lose: matches.filter(m => m.lose).length,
+        btts: matches.filter(m => m.homeScore > 0 && m.awayScore > 0).length,
         goals: {
-          for: homeMatches.map(m => m.homeScore || 0).reduce((a, b) => a + b, 0),
-          against: homeMatches.map(m => m.awayScore || 0).reduce((a, b) => a + b, 0),
-        },
-      };
-    };
-
-    const awayStanding = () => {
-      const awayMatches = this.lastAwayMatches(teamId);
-      return {
-        played: awayMatches.length,
-        win: awayMatches.filter(m => m.win).length,
-        draw: awayMatches.filter(m => m.draw).length,
-        lose: awayMatches.filter(m => m.lose).length,
-        goals: {
-          for: awayMatches.map(m => m.awayScore || 0).reduce((a, b) => a + b, 0),
-          against: awayMatches.map(m => m.homeScore || 0).reduce((a, b) => a + b, 0),
+          for: matches.map(m => (home ? m.homeScore : m.awayScore) || 0).reduce((a, b) => a + b, 0),
+          against: matches.map(m => (home ? m.awayScore : m.homeScore) || 0).reduce((a, b) => a + b, 0),
         },
       };
     };
@@ -92,13 +69,14 @@ export default class BaseLeague {
         win: stand.won,
         draw: stand.draw,
         lose: stand.lost,
+        btts: this.fixtures.filter(m => m.homeId == teamId || m.awayId == teamId).filter(m => m.homeScore > 0 && m.awayScore > 0).length,
         goals: {
           for: stand.goalsFor,
           against: stand.goalsAgainst
         }
       },
-      home: homeStanding(),
-      away: awayStanding(),
+      home: homeAwayStanding(this.lastHomeMatches.bind(this)),
+      away: homeAwayStanding(this.lastAwayMatches.bind(this)),
     };
   }
 }
