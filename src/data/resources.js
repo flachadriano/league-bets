@@ -1,4 +1,3 @@
-import footballdbLeagues from './footballdb/Leagues';
 import footballDataLeagues from './football-data/Leagues';
 import GridFootballData from './grid-football-data/Leagues';
 
@@ -12,8 +11,6 @@ export const apis = {
 
 export function loadLeagues(api) {
   switch (api) {
-    case apis.footballdb:
-      return footballdbLeagues;
     case apis.footballData:
       return footballDataLeagues;
     case apis.gridFootballData:
