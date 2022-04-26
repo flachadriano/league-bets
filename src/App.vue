@@ -2,7 +2,6 @@
   <div id="app">
     <TopBar></TopBar>
     <GridLeague v-if="!hasSelectedLeague"></GridLeague>
-    <LeagueHeader v-if="hasSelectedLeague"></LeagueHeader>
     <LeagueMatches v-if="hasSelectedLeague"></LeagueMatches>
   </div>
 </template>
@@ -10,16 +9,14 @@
 <script>
 import { mapGetters } from 'vuex';
 import TopBar from './components/TopBar';
-import LeagueHeader from './components/LeagueHeader.vue';
-import GridLeague from './components/GridLeague.vue';
 import LeagueMatches from './components/LeagueMatches.vue';
+import GridLeague from './components/GridLeague.vue';
 
 export default {
   name: 'App',
   components: {
     TopBar,
     GridLeague,
-    LeagueHeader,
     LeagueMatches,
   },
   computed: {

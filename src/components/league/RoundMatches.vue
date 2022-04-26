@@ -9,9 +9,7 @@
       <div>
         <MatchRow :fixture="fixture" v-for="fixture in fixtures" :key="fixture.id"></MatchRow>
       </div>
-      <MatchData v-if="hasFixture"
-        :fixture="fixture">
-      </MatchData>
+      <MatchData v-if="hasFixture" :fixture="fixture"></MatchData>
     </div>
   </div>
 </template>
