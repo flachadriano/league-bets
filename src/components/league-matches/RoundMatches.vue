@@ -17,7 +17,7 @@
 <script>
 import MatchRow from './MatchRow.vue';
 import MatchData from './MatchData.vue';
-import { mapMutations, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -26,16 +26,26 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'league',
       'hasFixture',
       'fixture',
     ])
   },
   methods: {
-    ...mapMutations([
-      'previousRound',
-      'nextRound',
-    ]),
+    previousRound() {
+      this.league.loadPreviousFixture();
+      this.$asyncComputed.fixtures.update();
+    },
+    nextRound() {
+      this.league.loadNextFixture();
+      this.$asyncComputed.fixtures.update();
+    },
   },
-  props: ['title', 'fixtures'],
+  asyncComputed: {
+    async fixtures() {
+      return this.league.currentRoundFixtures();
+    },
+  },
+  props: ['title'],
 };
 </script>

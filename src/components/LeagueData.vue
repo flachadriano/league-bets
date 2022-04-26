@@ -16,15 +16,10 @@
         </div>
       </div>
     </div>
-    <div class="d-flex justify-content-center" v-if="typeLeagueData == 1">
-      <span @click="reload()" style="font-size: 2.3rem; margin-top: 20px">↺</span>
-      <RoundMatches
-        :key="1"
-        :title="currentRoundTitle"
-        :fixtures="currentRoundFixtures">
-      </RoundMatches>
+    <div class="d-flex justify-content-center" >
+      <RoundMatches v-if="typeLeagueData == 1" :title="currentRoundTitle"></RoundMatches>
+      <LeagueStatistics v-if="typeLeagueData == 2"></LeagueStatistics>
     </div>
-    <LeagueStatistics v-if="typeLeagueData == 2"></LeagueStatistics>
   </div>
 </template>
 
@@ -51,14 +46,6 @@ export default {
       'closeLeague',
       'changeTypeLeagueData',
     ]),
-    reload() {
-      this.$asyncComputed.currentRoundFixtures.update();
-    }
-  },
-  asyncComputed: {
-    async currentRoundFixtures() {
-      return this.league.currentRoundFixtures();
-    },
   },
 };
 </script>
