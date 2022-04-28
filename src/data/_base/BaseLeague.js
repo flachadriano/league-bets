@@ -75,8 +75,8 @@ export default class BaseLeague {
           against: stand.goalsAgainst
         }
       },
-      home: homeAwayStanding(this.lastHomeMatches.bind(this)),
-      away: homeAwayStanding(this.lastAwayMatches.bind(this)),
+      home: homeAwayStanding(true),
+      away: homeAwayStanding(false),
     };
   }
 }
