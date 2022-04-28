@@ -1,8 +1,10 @@
 <template>
   <div class="d-flex flex-column">
-    <div class="mb-2">
-      <img class="mr-2" :src="logo" width="24px" height="24px">
-      <span>{{ name }}</span>
+    <div class="mb-2 card text-white bg-secondary">
+      <div class="d-flex justify-content-center mt-2 mb-2 ml-2 mr-2">
+        <img class="mr-2" :src="logo" width="24px" height="24px">
+        <span>{{ name }}</span>
+      </div>
     </div>
     <div>
       <span>{{ rank }} - {{ points }} points</span>

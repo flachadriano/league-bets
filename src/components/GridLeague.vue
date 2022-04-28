@@ -1,7 +1,7 @@
  <template>
-  <div class="d-flex flex-wrap">
-    <a class="d-flex flex-column ml-2 mb-5"
-      style="min-width: 200px"
+  <div class="d-flex flex-wrap justify-content-center p-5">
+    <a class="d-flex flex-column ml-2 mb-5 card text-white bg-secondary p-2"
+      style="min-width: 300px"
       @click.prevent="selectLeague(league)"
       v-for="league in leagues" :key="league.id">
       <div class="align-content-center">
