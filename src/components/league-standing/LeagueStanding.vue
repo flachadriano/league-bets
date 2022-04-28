@@ -1,5 +1,5 @@
 <template>
-    <span>Statistics WIP</span>
+    <span>Standing WIP</span>
 </template>
 
 <script>
