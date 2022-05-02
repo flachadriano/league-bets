@@ -41,7 +41,7 @@ export default class BaseLeague {
   }
 
   teamStanding(teamId) {
-    const stand = this.standing.find(stand => stand.team.id == teamId);
+    const stand = this.standing.table.find(stand => stand.teamId == teamId);
 
     const homeAwayStanding = (home) => {
       let matches = this.lastHomeMatches(teamId);

@@ -3,15 +3,15 @@ import { URL, HEADERS } from './Resources';
 import BaseGridLeague from '../_base/BaseGridLeague';
 import LeagueBuilder from '../_builders/LeagueBuilder';
 import MatchBuilder from '../_builders/MatchBuilder';
+import StandingBuilder from '../_builders/StandingBuilder';
+import StandingItemBuilder from '../_builders/StandingItemBuilder';
 import BaseLeague from '../_base/BaseLeague';
 import BaseMatch from '../_base/BaseMatch';
+import BaseStanding from '../_base/BaseStanding';
 
 export default class Leagues extends BaseGridLeague {
   createMatchBuilder(match, standing) {
-    const getTeamLogo = (teamId) => {
-      const stand = standing.find(stand => stand.team.id == teamId);
-      return stand.team.crestUrl;
-    };
+    const getTeamLogo = (teamName) => standing.table.find(stand => stand.name == teamName).logo;
     const options = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', hour12: false, minute: 'numeric' };
 
     return new MatchBuilder()
@@ -19,13 +19,31 @@ export default class Leagues extends BaseGridLeague {
       .round(match.matchday)
       .homeId(match.homeTeam.id)
       .home(match.homeTeam.name)
-      .homeLogo(getTeamLogo(match.homeTeam.id))
+      .homeLogo(getTeamLogo(match.homeTeam.name))
       .homeScore(match.score.fullTime.homeTeam)
       .awayId(match.awayTeam.id)
       .away(match.awayTeam.name)
-      .awayLogo(getTeamLogo(match.awayTeam.id))
+      .awayLogo(getTeamLogo(match.awayTeam.name))
       .awayScore(match.score.fullTime.awayTeam)
       .build();
+  }
+
+  createStandingBuilder(standing) {
+    const builder = new StandingBuilder();
+    standing.forEach(item => builder.item(new StandingItemBuilder()
+      .position(item.position)
+      .teamId(item.team.id)
+      .name(item.team.name)
+      .logo(item.team.crestUrl)
+      .played(item.playedGames)
+      .points(item.points)
+      .won(item.won)
+      .draw(item.draw)
+      .lost(item.lost)
+      .goalsFor(item.goalsFor)
+      .goalsAgainst(item.goalsAgainst)
+      .build()));
+    return builder.build();
   }
 
   createLeagueBuilder(league) {
@@ -37,7 +55,7 @@ export default class Leagues extends BaseGridLeague {
       .currentRound(league.currentSeason.currentMatchday)
       .loadStanding(async () => {
         const standingURL = `${URL}/competitions/${league.code}/standings`;
-        return Cache.get(standingURL, HEADERS).then(data => data.standings[0].table);
+        return Cache.get(standingURL, HEADERS).then(data => new BaseStanding(this.createStandingBuilder(data.standings[0].table)));
       }).loadMatches(async (standing) => {
         const nextRoundURL = `${URL}/competitions/${league.code}/matches`;
         return Cache.get(nextRoundURL, HEADERS).then(data => data.matches.map(m => new BaseMatch(this.createMatchBuilder(m, standing))));
