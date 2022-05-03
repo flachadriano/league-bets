@@ -3,6 +3,11 @@ export default class MatchBuilder {
     this.data = {};
   }
 
+  played(played) {
+    this.data.played = played;
+    return this;
+  }
+
   dateStr(dateStr) {
     this.data.dateStr = dateStr;
     return this;
@@ -53,24 +58,7 @@ export default class MatchBuilder {
     return this;
   }
 
-  validateResult(validateResultFn) {
-    this.data.validateResult = validateResultFn;
-    return this;
-  }
-
   build() {
-    this.data.validateResult = function(teamId) {
-      this.draw = this.homeScore == this.awayScore;
-      if (teamId == this.homeId) {
-        this.win = this.homeScore > this.awayScore;
-        this.lose = this.homeScore < this.awayScore;
-      } else {
-        this.win = this.homeScore < this.awayScore;
-        this.lose = this.homeScore > this.awayScore;
-      }
-      return this;
-    };
-
     return this.data;
   }
 }

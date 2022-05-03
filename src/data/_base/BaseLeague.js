@@ -10,21 +10,21 @@ export default class BaseLeague {
   }
 
   lastMatches(teamId, quantity = 6) {
-    return this.fixtures
+    return this.fixtures.filter(m => m.played).reverse()
       .filter(m => m.homeId == teamId || m.awayId == teamId)
       .splice(0, quantity)
       .map(m => m.validateResult(teamId));
   }
 
   lastHomeMatches(teamId, quantity = 6) {
-    return this.fixtures
+    return this.fixtures.filter(m => m.played).reverse()
       .filter(m => m.homeId == teamId)
       .splice(0, quantity)
       .map(m => m.validateResult(teamId));
   }
 
   lastAwayMatches(teamId, quantity = 6) {
-    return this.fixtures
+    return this.fixtures.filter(m => m.played).reverse()
       .filter(m => m.awayId == teamId)
       .splice(0, quantity)
       .map(m => m.validateResult(teamId));
