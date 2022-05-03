@@ -50,14 +50,12 @@ export default class BaseLeague {
       }
       return {
         played: matches.length,
-        win: matches.filter(m => m.win).length,
+        won: matches.filter(m => m.won).length,
         draw: matches.filter(m => m.draw).length,
-        lose: matches.filter(m => m.lose).length,
+        lost: matches.filter(m => m.lost).length,
         btts: matches.filter(m => m.homeScore > 0 && m.awayScore > 0).length,
-        goals: {
-          for: matches.map(m => (home ? m.homeScore : m.awayScore) || 0).reduce((a, b) => a + b, 0),
-          against: matches.map(m => (home ? m.awayScore : m.homeScore) || 0).reduce((a, b) => a + b, 0),
-        },
+        goalsFor: matches.map(m => (home ? m.homeScore : m.awayScore) || 0).reduce((a, b) => a + b, 0),
+        goalsAgainst: matches.map(m => (home ? m.awayScore : m.homeScore) || 0).reduce((a, b) => a + b, 0),
       };
     };
 
@@ -65,15 +63,13 @@ export default class BaseLeague {
       rank: stand.position,
       points: stand.points,
       all: {
-        played: stand.playedGames,
-        win: stand.won,
+        played: stand.played,
+        won: stand.won,
         draw: stand.draw,
-        lose: stand.lost,
+        lost: stand.lost,
         btts: this.fixtures.filter(m => m.homeId == teamId || m.awayId == teamId).filter(m => m.homeScore > 0 && m.awayScore > 0).length,
-        goals: {
-          for: stand.goalsFor,
-          against: stand.goalsAgainst
-        }
+        goalsFor: stand.goalsFor,
+        goalsAgainst: stand.goalsAgainst,
       },
       home: homeAwayStanding(true),
       away: homeAwayStanding(false),

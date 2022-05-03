@@ -3,15 +3,15 @@
     <RaceData class="mb-2" :matches="fixtures"></RaceData>
     <div>
       <span>{{ standing.played }} P | </span>
-      <span>{{ standing.win }} W | </span>
+      <span>{{ standing.won }} W | </span>
       <span>{{ standing.draw }} D | </span>
-      <span>{{ standing.lose }} L</span>
+      <span>{{ standing.lost }} L</span>
     </div>
     <div>
-      <span>{{ standing.goals.for }}:{{ standing.goals.against }} Goals</span>
+      <span>{{ standing.goalsFor }}:{{ standing.goalsAgainst }} Goals</span>
     </div>
     <div>
-      <span>{{ (standing.goals.for/standing.played).toFixed(2) }}:{{ (standing.goals.against/standing.played).toFixed(2) }} Goals per match</span>
+      <span>{{ (standing.goalsFor/standing.played).toFixed(2) }}:{{ (standing.goalsAgainst/standing.played).toFixed(2) }} Goals per match</span>
     </div>
     <div>
       <span>{{ standing.btts }} Both teams to score - {{ (standing.btts / standing.played * 100).toFixed() }}%</span>
