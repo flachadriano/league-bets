@@ -15,6 +15,7 @@ export default class Leagues extends BaseGridLeague {
     const options = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', hour12: false, minute: 'numeric' };
 
     return new MatchBuilder()
+      .id(match.id)
       .played(match.status != 'SCHEDULED')
       .dateStr(new Date(match.utcDate).toLocaleString('en-US', options))
       .round(match.matchday)

@@ -27,7 +27,7 @@ export default new Vuex.Store({
     api: state => state.api,
     leagues: state => state.leagues,
     league: state => state.league,
-    fixture: state => state.fixture,
+    selectedFixture: state => state.fixture,
     hasSelectedLeague: state => state.league.id > 0,
     hasFixture: state => Object.keys(state.fixture).length > 0,
     currentRound: state => state.league?.currentRound,

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mb-3" @click="selectFixture(fixture)">
+  <div class="d-flex mb-3 p-1" @click="selectFixture(fixture)" :class="{ 'bg-secondary': selected }">
     <div class="align-items-center">
       <span>{{ fixture.dateStr }}</span>
     </div>
@@ -29,6 +29,6 @@ export default {
       'selectFixture',
     ])
   },
-  props: ['fixture'],
+  props: ['fixture', 'selected'],
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex ml-2 border-left border-secondary">
+  <div class="d-flex border-left border-secondary">
     <ClubDetail class="ml-1" :key="1"
       :id="fixture.homeId"
       :logo="fixture.homeLogo"

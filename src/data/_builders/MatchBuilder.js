@@ -3,6 +3,11 @@ export default class MatchBuilder {
     this.data = {};
   }
 
+  id(id) {
+    this.data.id = id;
+    return this;
+  }
+
   played(played) {
     this.data.played = played;
     return this;

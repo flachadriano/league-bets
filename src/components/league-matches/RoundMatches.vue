@@ -7,9 +7,9 @@
     </h2>
     <div class="d-flex">
       <div>
-        <MatchRow :fixture="fixture" v-for="fixture in fixtures" :key="fixture.id"></MatchRow>
+        <MatchRow v-for="fixture in fixtures" :key="fixture.id" :fixture="fixture" :selected="fixture.id == selectedFixture.id"></MatchRow>
       </div>
-      <MatchData v-if="hasFixture" :fixture="fixture"></MatchData>
+      <MatchData v-if="hasFixture" :fixture="selectedFixture"></MatchData>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
     ...mapGetters([
       'league',
       'hasFixture',
-      'fixture',
+      'selectedFixture',
       'currentRoundTitle',
     ])
   },
