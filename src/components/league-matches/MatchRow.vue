@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex mb-3 p-1" @click="selectFixture(fixture)" :class="{ 'bg-secondary': selected }">
-    <div class="align-items-center">
+  <div class="d-flex mb-1 p-1" @click="selectFixture(fixture)" :class="{ 'bg-secondary': selected }">
+    <div class="align-items-center pt-3">
       <span>{{ fixture.dateStr }}</span>
     </div>
     <div class="ml-2 mr-2">
